@@ -48,7 +48,7 @@
   "scripts": {
     "develop": "tsc -p tsconfig.server.json -w",
     "build": "tsc -p tsconfig.server.json",
-    "prepublishOnly": "yarn build"
+     "postinstall": "yarn build"
   },
   "license": "MIT"
 }
