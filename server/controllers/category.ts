@@ -1,17 +1,18 @@
 import { Strapi } from "@strapi/strapi";
 import fetchWordpressData from "../utils/fetchWordpressData";
 
-const WORDPRESS_CATEGORY_URL = "https://shega.co/wp-json/wp/v2/categories";
+//  = "https://shega.co/wp-json/wp/v2/categories";
 export default ({ strapi }: { strapi: Strapi }) => ({
     async migrateCategories(ctx) {
         const { stopPage, batch } = ctx.params;
-        const{username,password}=ctx.request.body
+        const{username,password,url}=ctx.request.body
         let page = ctx.params.page;
         let totalPage;
         let message = "";
         let success = true;
         let firstPage = page;
         let hasMorePosts = true;
+        const WORDPRESS_CATEGORY_URL=url
   
         while (hasMorePosts) {
          
@@ -72,7 +73,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
             console.log(`Page ${page} migration completed successfully!`);
             page++;
           } catch (error) {
-            message = `${error.message} || ${error.stack}`;
+            message = `${error.message}`;
             success = false;
             break;
           }

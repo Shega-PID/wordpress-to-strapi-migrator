@@ -30,16 +30,6 @@ export default [
     }
 },
 {
-  method: 'DELETE',
-  path: '/delete-users',
-  handler: 'author.deleteAll',
-  config: {
-    policies: [],
-    auth:false,
-    middleware:[]
-  }
-},
-{
   method: 'POST',
   path: '/migrate-category/:page/:stopPage/:batch',
   handler: 'category.migrateCategories',

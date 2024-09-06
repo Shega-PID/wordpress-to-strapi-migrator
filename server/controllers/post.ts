@@ -178,6 +178,8 @@ export default ({strapi}: {strapi:Strapi}) => ({
                       await strapi
                         .service("api::post.post")
                         .create({ data: post });
+                    }else{
+                      console.log(`Post with ${post?.id} already exists`)
                     }
                   } catch (error) {
                     console.error(

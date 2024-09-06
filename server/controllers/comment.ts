@@ -46,6 +46,8 @@ export default ({strapi}:{strapi:Strapi}) =>({
                       const exist = await strapi.query("api::comment.comment").findOne({ where: { id: comment?.id } });
                       if (!exist) {
                         await strapi.service('api::comment.comment').create({data:comment})
+                      }else{
+                        console.log(`Comment with ${comment?.id} already exists`)
                       }
                     } catch (error) {
                       

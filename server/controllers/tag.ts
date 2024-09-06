@@ -23,7 +23,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
               success=false
               break;
             }
-            if (page > stopPage || page > totalPage) {
+            if (parseInt(page) > parseInt(stopPage) ) {
               hasMorePosts = false;
               break;
             }
@@ -55,6 +55,8 @@ export default ({ strapi }: { strapi: Strapi }) => ({
                       const tagExist = await strapi.query("api::tag.tag").findOne({ where: { id: tag?.id } });
                       if (!tagExist) {
                         await strapi.service("api::tag.tag").create({ data: tag });
+                      }else{
+                        console.log(`Tag with ${tag?.id} id already exists`)
                       }
                     } catch (error) {
                       console.error(`Error creating tag with ID ${tag.id}: `, error);
@@ -65,8 +67,8 @@ export default ({ strapi }: { strapi: Strapi }) => ({
               )
             );
     message='migration completed successfully!'
-            console.log(`Page ${page} migration completed successfully!`);
             page++;
+            console.log(`Page ${page} migration completed successfully!`);
           } catch (error) {
             message = `${error.message} || ${error.stack}`;
             success = false;
