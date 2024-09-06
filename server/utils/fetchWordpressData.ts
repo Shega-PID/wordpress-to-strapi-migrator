@@ -74,7 +74,7 @@ export async function fetchJsonData(page, filePath, batch,stopPage) {
     const fileContent = fs.readFileSync(filePath, 'utf8');
     const allUsers = JSON.parse(fileContent);
 
-    const start = (page - 1) * batch;;
+    const start = (page - 1) * batch;
     const end = stopPage * batch;
     const paginatedUsers = allUsers.slice(start, end);
 

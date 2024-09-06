@@ -3,8 +3,7 @@
  */
 const path = require('path');
 import { Strapi } from '@strapi/strapi';
-import data from "./author.json";
-import { fetchJsonData } from "../utils/fetchWordpressData";
+import  { fetchJsonData } from "../utils/fetchWordpressData";
 import axios from 'axios'
 
 const filePath = path.join(__dirname, './users.json');
@@ -30,7 +29,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
             hasMorePosts = false;
             break;
           }
-          const strapiTags = wordpressUsers.map((user) => ({
+          const strapiUsers = wordpressUsers.map((user) => ({
             id: user?.ID,
             username:  user?.user_login.length < 3  ? user?.user_login + user?.ID : user?.user_login,
             email:  user?.user_email,
@@ -42,10 +41,17 @@ export default ({ strapi }: { strapi: Strapi }) => ({
           }));
 
           await Promise.all(
-            strapiTags.map( async(user) =>{
-              await strapi.plugins['users-permissions'].services.user.add({...user })
-              console.log(`Page ${increment} migration completed successfully!`);
-              increment++;
+            strapiUsers.map( async(user) =>{
+            //   const existingUser = await strapi.plugins['users-permissions'].services.user.fetch({ id: user.id });
+            // console.log({existingUser})
+            //   if(!existingUser){
+                await strapi.plugins['users-permissions'].services.user.add({...user })
+                console.log(`Page ${increment} migration completed successfully!`);
+                increment++;
+           
+            //  }else{
+            //   console.log(`User with ${user.ID} id already exists!`);
+            //  } 
               
         }
             )
@@ -80,21 +86,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
         lastPage:Math.ceil((increment + 1)/batch)
       });
     },
-    async deleteAll(ctx) {
-      try {
-        // Fetch all users
-        const users = await strapi.plugins['users-permissions'].services.user.fetchAll();
   
-        // Delete all users
-        for (const user of users) {
-          await strapi.plugins['users-permissions'].services.user.remove({ id: user.id });
-        }
-  
-        return ctx.send({ message: 'All users have been deleted' });
-      } catch (error) {
-        return ctx.badRequest('An error occurred while deleting users', { error });
-      }
-    },
    
   
   })

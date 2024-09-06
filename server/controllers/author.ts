@@ -4,10 +4,6 @@
 const path = require('path');
 import { Strapi } from '@strapi/strapi';
 import data from "./author.json";
-import { fetchJsonData } from "../utils/fetchWordpressData";
-import axios from 'axios'
-
-const filePath = path.join(__dirname, './users.json');
 export default ({ strapi }: { strapi: Strapi }) => ({
     async migrateAuthors(ctx) {
       let authorCount=0
@@ -36,6 +32,8 @@ export default ({ strapi }: { strapi: Strapi }) => ({
              });
              authorCount++
              console.log(`inserted successfully: ${createPost.id}`);
+            }else{
+              console.log('Author already exists')
             }
           }catch (error) {
             console.error(
@@ -51,5 +49,6 @@ export default ({ strapi }: { strapi: Strapi }) => ({
         });
      
     },
+   
   })
 
