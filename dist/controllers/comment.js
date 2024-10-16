@@ -4,24 +4,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const fetchWordpressData_1 = __importDefault(require("../utils/fetchWordpressData"));
-const WORDPRESS_COMMENT_URL = "https://shega.co/wp-json/wp/v2/comments";
+const mapField_1 = require("../utils/mapField");
+const fetch_json_structure_1 = require("../utils/fetch-json-structure");
+// const WORDPRESS_COMMENT_URL = "https://shega.co/wp-json/wp/v2/comments";
 exports.default = ({ strapi }) => ({
     async migrateComments(ctx) {
         const { stopPage, batch } = ctx.params;
-        const { username, password } = ctx.request.body;
+        const { username, password, url } = ctx.request.body;
         let page = ctx.params.page;
         let totalPage;
-        let message = '';
+        let message = "";
         let success = true;
         let firstPage = page;
         let hasMorePosts = true;
+        const WORDPRESS_COMMENT_URL = url;
+        const authorStructure = await (0, fetch_json_structure_1.fetchJsonStructure)();
         while (hasMorePosts) {
             try {
                 const data = await (0, fetchWordpressData_1.default)(page, WORDPRESS_COMMENT_URL, batch, username, password);
                 const { data: wordpressComments, totalPages } = data;
                 totalPage = totalPages;
                 if (firstPage > totalPage) {
-                    message = 'Invalid page number';
+                    message = "Invalid page number";
                     success = false;
                     break;
                 }
@@ -33,22 +37,25 @@ exports.default = ({ strapi }) => ({
                     hasMorePosts = false;
                     break;
                 }
-                const strapiComment = wordpressComments.map((comment) => {
-                    var _a, _b, _c;
-                    return ({
-                        id: comment === null || comment === void 0 ? void 0 : comment.id,
-                        date: comment === null || comment === void 0 ? void 0 : comment.date,
-                        isApproved: (comment === null || comment === void 0 ? void 0 : comment.status) === 'approved' ? true : false,
-                        body: (_c = (_b = (_a = comment === null || comment === void 0 ? void 0 : comment.content) === null || _a === void 0 ? void 0 : _a.rendered) === null || _b === void 0 ? void 0 : _b.replace(/<\/?[^>]+(>|$)/g, "")) !== null && _c !== void 0 ? _c : '',
-                        post: comment === null || comment === void 0 ? void 0 : comment.post,
-                    });
-                });
-                await Promise.all(strapiComment.map(async (comment) => {
+                // const strapiComment = wordpressComments.map((comment) => ({
+                //   id: comment?.id,
+                //   date: comment?.date,
+                //   isApproved: comment?.status === "approved" ? true : false,
+                //   body:
+                //     comment?.content?.rendered?.replace(/<\/?[^>]+(>|$)/g, "") ?? "",
+                //   post: comment?.post,
+                // }));
+                await Promise.all(wordpressComments.map(async (comment) => {
                     if (comment) {
                         try {
-                            const exist = await strapi.query("api::comment.comment").findOne({ where: { id: comment === null || comment === void 0 ? void 0 : comment.id } });
+                            const categoryFiels = (0, mapField_1.mapFieldsNest)(comment, authorStructure === null || authorStructure === void 0 ? void 0 : authorStructure.comments);
+                            const exist = await strapi
+                                .query("api::comment.comment")
+                                .findOne({ where: { id: comment === null || comment === void 0 ? void 0 : comment.id } });
                             if (!exist) {
-                                await strapi.service('api::comment.comment').create({ data: comment });
+                                await strapi
+                                    .service("api::comment.comment")
+                                    .create({ data: categoryFiels });
                             }
                             else {
                                 console.log(`Comment with ${comment === null || comment === void 0 ? void 0 : comment.id} already exists`);
@@ -59,7 +66,7 @@ exports.default = ({ strapi }) => ({
                         }
                     }
                 }));
-                message = 'migration completed successfully!';
+                message = "migration completed successfully!";
                 console.log(`Page ${page} migration completed successfully!`);
                 page++;
             }
@@ -69,12 +76,13 @@ exports.default = ({ strapi }) => ({
                 break;
             }
         }
-        ctx.send({ success,
+        ctx.send({
+            success,
             PerPage: batch,
             totalPages: totalPage,
             startPage: firstPage,
             lastPage: page - 1,
-            message
+            message,
         });
     },
 });
