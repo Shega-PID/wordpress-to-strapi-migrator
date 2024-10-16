@@ -7,18 +7,21 @@ interface MigratorProps {
   handleStartPage: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleEndPage: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleBatch: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleFieldMapping: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleRestApi: (event: React.ChangeEvent<HTMLInputElement>) => void;
   label: string;
   handleMigration: (
     start: number,
     end: number,
     batch: number,
-    restAPI: string
+    restAPI: string,
+    fieldMap:string[],
   ) => void;
   startPage: number;
   endPage: number;
   batch: number;
   restApi: string;
+  fieldMap:string[]
 }
 const Migrator = ({
   handleStartPage,
@@ -26,14 +29,19 @@ const Migrator = ({
   handleBatch,
   handleRestApi,
   handleMigration,
+  handleFieldMapping,
   startPage,
   endPage,
   batch,
   restApi,
-  label
+  label,
+  fieldMap,
 }: MigratorProps) => {
- console.log(startPage,endPage,batch,restApi)
+ 
   return (
+    <div className="migrateContent">
+    
+     
     <div className="migrateCategory">
       <InputField
         id="start-page"
@@ -78,7 +86,7 @@ const Migrator = ({
       <SButton
         id="migrate-button"
         onClick={() =>
-          handleMigration(startPage, endPage, batch, restApi)
+          handleMigration(startPage, endPage, batch, restApi,fieldMap)
         }
         label={label}
         startPage={startPage}
@@ -86,6 +94,7 @@ const Migrator = ({
         batch={batch}
         restAPI={restApi}
       />
+    </div>
     </div>
   );
 };

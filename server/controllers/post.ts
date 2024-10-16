@@ -2,15 +2,16 @@ import { Strapi } from "@strapi/strapi";
 import fetchWordpressData from "../utils/fetchWordpressData";
 import he from 'he';
 
-const WORDPRESS_POST_URL = "https://shega.co/wp-json/wp/v2/posts";
+// const WORDPRESS_POST_URL = "https://shega.co/wp-json/wp/v2/posts";
 export default ({strapi}: {strapi:Strapi}) => ({
     async migratePosts(ctx) {
         const { stopPage, batch } = ctx.params;
-        const{username,password}=ctx.request.body
+        const{username,password,url}=ctx.request.body
         let page = ctx.params.page;
         const firstPage = page;
         let success = true;
         let hasMorePosts = true;
+       const WORDPRESS_POST_URL=url
   
         const insertImage = async (content) => {
           const imgTags = content.match(/<img[^>]+>/g);

@@ -23,11 +23,12 @@ const migrationRequest = {
     startPage: number,
     endPage: number,
     batch: number,
-    url: string
+    url: string,
+    authorAttribute:string[]
   ) => {
     return await request("/w-to-s-migrator/migrate-author", {
       method: "POST",
-      body: { username, password, url },
+      body: { username, password, url,authorAttribute },
     });
   },
   migrateUser: async (  username: string,
@@ -35,10 +36,11 @@ const migrationRequest = {
     startPage: number,
     endPage: number,
     batch: number,
-    url: string) => {
+    url: string,
+    userAttribute:string[],) => {
     return await request(`/w-to-s-migrator/migrate-users/${startPage}/${endPage}/${batch}`, {
       method: "POST",
-      body: { username, password,url },
+      body: { username, password,url,userAttribute },
     });
   },
   migrateCategory: async (
@@ -47,13 +49,14 @@ const migrationRequest = {
     startPage: number,
     endPage: number,
     batch: number,
-    url: string
+    url: string,
+    categoryAttribute:string[]
   ) => {
     return await request(
       `/w-to-s-migrator/migrate-category/${startPage}/${endPage}/${batch}`,
       {
         method: "POST",
-        body: { username, password, url },
+        body: { username, password, url,categoryAttribute },
       }
     );
   },

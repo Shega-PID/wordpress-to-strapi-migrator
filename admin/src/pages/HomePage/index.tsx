@@ -14,6 +14,7 @@ import Authorization from '../../components/Authorization';
 import useMigrateCategory from '../../hook/useMigrateCategory';
 import useMigrateTag from '../../hook/useMigrateTag';
 import useMigrateMedia from '../../hook/useMigrateMedia';
+import { log } from 'winston';
 
 const HomePage = () => {
   const {
@@ -27,15 +28,15 @@ const HomePage = () => {
     startPage,
     endPage,
     batch,
+    fieldMap,
     restApi,
     handleStartPage,
     handleRestApi,
     handleEndPage,
+    handleFieldMapping,
     handleBatch,
   } = useMigrateCategory();
  
-
-
   return (
     <div className="home-page">
       <h1>Migrate your content from WordPress to Strapi In Minutes</h1>
@@ -47,19 +48,21 @@ const HomePage = () => {
         endPage={endPage}
         batch={batch}
         restApi={restApi}
+        fieldMap={fieldMap}
         handleBatch={(event) => handleBatch(parseInt(event.target.value))}
         handleStartPage={ (event) => handleStartPage(parseInt(event.target.value))}
+        handleFieldMapping={ (event) => handleFieldMapping(event.target.value)}
         handleRestApi={(event) =>handleRestApi(event.target.value)}
         handleEndPage={(event) => handleEndPage(parseInt(event.target.value))}
         handleMigration={handleMigration}
+        
         label="Migrate"
         />
          
       </div>
       {showAlert && (
         <CustomAlert
-          title= {result?.success ? "Success" : "Error"}
-          variant="danger"
+          variant={result?.success ? "success" : "danger"}
           message={result?.message ?? ""}
           icon={<Information />}
         />

@@ -8,7 +8,7 @@ interface WordpressResponse {
 export async function fetchToken(username, password) {
   let token = '';
   
-  const res=  await axios.post(`https://shega.co/wp-json/jwt-auth/v1/token?username=${username}&password=${password}`, {},
+  const res=  await axios.post(`https://v2.shega.co/wp-json/jwt-auth/v1/token?username=${username}&password=${password}`, {},
     { withCredentials: false })
     if (res && res.data && res.data.data && res.data.data.token) {
       token = res.data.data.token;

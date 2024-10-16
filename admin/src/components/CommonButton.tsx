@@ -12,7 +12,7 @@ interface IButton{
 
 const SButton = ({label,onClick,id,startPage,restAPI,endPage,batch}:IButton) => {
   return (
-    <Button id={id} onClick={() => onClick(startPage,endPage,batch,restAPI)}>{label}</Button>
+    <Button className="migrate-button" id={id} onClick={() => onClick(startPage,endPage,batch,restAPI)}>{label}</Button>
   )
 }
 

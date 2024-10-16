@@ -10,9 +10,9 @@ interface iUnUpdatedId{
 }
 export default ({strapi}:{strapi:Strapi}) =>({
     async downloadUploadMedia(ctx) {
-        const wordpressUrl = "https://shega.co/wp-json/wp/v2/media";
+        // const wordpressUrl = "https://shega.co/wp-json/wp/v2/media";
         const { stopPage, batch } = ctx.params;
-        const{username,password}=ctx.request.body
+        const{username,password,url}=ctx.request.body
         let page = ctx.params.page;
         let message = "";
         let totalPage;
@@ -20,6 +20,7 @@ export default ({strapi}:{strapi:Strapi}) =>({
         const firstPage = page;
         let success = true;
         let hasMorePosts = true;
+        const wordpressUrl=url
         while (hasMorePosts) {
           try {
             // Fetch media from WordPress

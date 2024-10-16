@@ -20,11 +20,10 @@ const useHomePage = () =>{
     const [isVisible, setIsVisible] = useState<boolean>(true);
 
    const authContent = getAuth();
-  
 
     const handleClose = () => {
       setIsVisible(false);
-      setShowAlert(false)
+      setShowAlert(false);
     };
   //   const handlePostsMigration = async () => {
   //     setIsMigrating(true)
@@ -56,11 +55,11 @@ const useHomePage = () =>{
     //   setIsMigrating(false)
     //  }
     // };
-    const handleMigration = async (startpage:number,endPage:number,batch:number,restApi:string) => {
+    const handleMigration = async (startpage:number,endPage:number,batch:number,restApi:string,fieldMap:string[]) => {
       setIsMigrating(true)
       let result;
       if(restApi.toLowerCase() === 'categories'){
-        result= await migrationRequest.migrateCategory(authContent?.username,authContent?.pass,startpage,endPage,batch,`${authContent?.restUrl}/${restApi}`);
+        result= await migrationRequest.migrateCategory(authContent?.username,authContent?.pass,startpage,endPage,batch,`${authContent?.restUrl}/${restApi}`,fieldMap);
       }
       if(restApi.toLowerCase() === 'comments'){
         result= await migrationRequest.migrateComment(authContent?.username,authContent?.pass,startpage,endPage,batch,`${authContent?.restUrl}/${restApi}`);
@@ -75,16 +74,15 @@ const useHomePage = () =>{
         result= await migrationRequest.migratePost(authContent?.username,authContent?.pass,startpage,endPage,batch,`${authContent?.restUrl}/${restApi}`);
       }
       if(restApi.toLowerCase() === 'author'){
-        result= await migrationRequest.migrateAuthor(authContent?.username,authContent?.pass,startpage,endPage,batch,`${authContent?.restUrl}/${restApi}`);
+        result= await migrationRequest.migrateAuthor(authContent?.username,authContent?.pass,startpage,endPage,batch,`${authContent?.restUrl}/${restApi}`,fieldMap);
       }
       if(restApi.toLowerCase() === 'users'){
-        result= await migrationRequest.migrateUser(authContent?.username,authContent?.pass,startpage,endPage,batch,`${authContent?.restUrl}/${restApi}`);
+        result= await migrationRequest.migrateUser(authContent?.username,authContent?.pass,startpage,endPage,batch,`${authContent?.restUrl}/${restApi}`,fieldMap);
       }
       setResult(result)
       setShowAlert(true)
     if(result){
       setIsMigrating(false)
-      
     }
     };
 
@@ -111,7 +109,6 @@ const useHomePage = () =>{
   const handleUrl = (value:string) =>{
     setUrl(value)
    }
-
     return{
 isMigrating,
 result,

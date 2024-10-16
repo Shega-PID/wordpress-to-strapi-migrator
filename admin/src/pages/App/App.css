@@ -41,6 +41,7 @@
 .label-width1{
   width:70px;
 }
+
 .authorization-box{
     display: flex;
     flex-direction: column;
@@ -100,6 +101,18 @@
   .input-field1{
     width:100px;
   }
+  .input-field2{
+    width:735px;
+  }
+  .migrateContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    flex-wrap: wrap;
+    /* align-items: center; */
+    gap:10px;
+    margin-left: 5%;
+  }
   .migrateCategory{
     display: flex;
     flex-direction: row;
@@ -107,5 +120,13 @@
     flex-wrap: wrap;
     align-items: center;
     gap:10px;
-    margin-left: 5%;
+    /* margin-left: 5%; */
+  }
+  .field-mapping{
+    display: flex;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .migrate-button{
+    padding:20px;
   }
