@@ -5,15 +5,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const fetchWordpressData_1 = __importDefault(require("../utils/fetchWordpressData"));
 const he_1 = __importDefault(require("he"));
-const WORDPRESS_POST_URL = "https://shega.co/wp-json/wp/v2/posts";
+// const WORDPRESS_POST_URL = "https://shega.co/wp-json/wp/v2/posts";
 exports.default = ({ strapi }) => ({
     async migratePosts(ctx) {
         const { stopPage, batch } = ctx.params;
-        const { username, password } = ctx.request.body;
+        const { username, password, url } = ctx.request.body;
         let page = ctx.params.page;
         const firstPage = page;
         let success = true;
         let hasMorePosts = true;
+        const WORDPRESS_POST_URL = url;
         const insertImage = async (content) => {
             const imgTags = content.match(/<img[^>]+>/g);
             if (imgTags) {

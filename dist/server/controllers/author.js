@@ -1,25 +1,30 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * author controller
  */
 const path = require('path');
-const author_json_1 = __importDefault(require("./author.json"));
+const mapField_1 = require("../utils/mapField");
+const fetch_json_structure_1 = require("../utils/fetch-json-structure");
+const fs = require('fs');
+const filePath = path.join('./w_authors.json');
 exports.default = ({ strapi }) => ({
     async migrateAuthors(ctx) {
         let authorCount = 0;
-        for (const author of author_json_1.default.author) {
+        const fileContent = fs.readFileSync(filePath, 'utf8');
+        // const {authorAttribute} = ctx.request.body;
+        const authorStructure = await (0, fetch_json_structure_1.fetchJsonStructure)();
+        const data = JSON.parse(fileContent);
+        for (const author of data.author) {
             try {
+                const authorFields = (0, mapField_1.mapFields)(author, authorStructure === null || authorStructure === void 0 ? void 0 : authorStructure.author);
                 const authorExists = await strapi
                     .query("api::author.author")
                     .findOne({ where: { id: author === null || author === void 0 ? void 0 : author.id } });
                 if (!authorExists) {
-                    const createPost = await strapi.service("api::author.author").create({
+                    const createAuthor = await strapi.service("api::author.author").create({
                         data: {
-                            ...author,
+                            ...authorFields,
                             slug: author === null || author === void 0 ? void 0 : author.name.toString().toLowerCase().trim().replace(/\s+/g, "-").replace(/[^\w\-]+/g, "").replace(/\-\-+/g, "-"),
                             seo: {
                                 metaTitle: author === null || author === void 0 ? void 0 : author.name,
@@ -29,7 +34,7 @@ exports.default = ({ strapi }) => ({
                         publishedAt: new Date(),
                     });
                     authorCount++;
-                    console.log(`inserted successfully: ${createPost.id}`);
+                    console.log(`inserted successfully: ${createAuthor.id}`);
                 }
                 else {
                     console.log('Author already exists');
