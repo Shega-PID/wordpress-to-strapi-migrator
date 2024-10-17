@@ -47,7 +47,6 @@ exports.default = ({ strapi }) => ({
                     if (category) {
                         try {
                             const categoryFiels = (0, mapField_1.mapFieldsNest)(category, authorStructure === null || authorStructure === void 0 ? void 0 : authorStructure.category);
-                            console.log({ categoryFiels });
                             const categoryExists = await strapi
                                 .query("api::category.category")
                                 .findOne({ where: { id: category === null || category === void 0 ? void 0 : category.id } });
