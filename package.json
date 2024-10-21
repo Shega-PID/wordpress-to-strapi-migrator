@@ -1,11 +1,20 @@
 {
-  "name": "wordpress-to-strapi-migrator",
-  "version": "2.0.1",
-  "description": "This is the description of the plugin.",
-  "strapi": {
-    "name": "w-to-s-migrator",
-    "description": "Description of w-to-s-migrator plugin",
-    "kind": "plugin"
+  "name": "w-to-s-migrator",
+  "version": "0.0.1",
+  "description": "This Strapi plugin allows you to seamlessly migrate your WordPress content to Strapi, including media files, posts/news, categories, authors, users, comments, and tags. The plugin uses WordPress's REST API to fetch the data, ensuring efficient and reliable migration.",
+  "license": "MIT",
+  "author": {
+    "name": "Shega",
+    "email":"dev@shega.org"
+  },
+  "maintainers": [
+    {
+      "name": "Shega"
+    }
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.server.json",
+    "develop": "tsc -p tsconfig.server.json -w"
   },
   "dependencies": {
     "@strapi/design-system": "^1.6.3",
@@ -32,21 +41,13 @@
     "react-router-dom": "^5.2.0",
     "styled-components": "^5.2.1"
   },
-  "author": {
-    "name": "A Strapi developer"
-  },
-  "maintainers": [
-    {
-      "name": "A Strapi developer"
-    }
-  ],
   "engines": {
     "node": ">=18.0.0 <=20.x.x",
     "npm": ">=6.0.0"
   },
-  "scripts": {
-    "develop": "tsc -p tsconfig.server.json -w",
-    "build": "tsc -p tsconfig.server.json"
-  },
-  "license": "MIT"
+  "strapi": {
+    "name": "w-to-s-migrator",
+    "description": "This Strapi plugin allows you to seamlessly migrate your WordPress content to Strapi, including media files, posts/news, categories, authors, users, comments, and tags. The plugin uses WordPress's REST API to fetch the data, ensuring efficient and reliable migration.",
+    "kind": "plugin"
+  }
 }
