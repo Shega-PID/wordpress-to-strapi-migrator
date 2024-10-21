@@ -1,19 +1,24 @@
 .home-page{
     display:flex;
     flex-direction: column;
-    /* justify-content: center;
-    align-items: center; */
+    justify-content: center;
     background-color: transparent;
     color:white;
     font-size: 20px;
     width:100%;
     margin-top: 20px;
+    border: 1px solid black;
+    padding:30px;
+    gap: 30px;
+    
+ 
 }
 
 .home-page h1{
-   text-align: center;
+   text-align: left;
     color:white;
     font-size:30px;
+    padding-left: 50px;
 }
 
 

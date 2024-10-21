@@ -20,11 +20,11 @@ exports.default = ({ strapi }) => ({
         const firstPage = page;
         let success = true;
         let hasMorePosts = true;
-        const wordpressUrl = url;
+        const { restApi } = ctx.request.body;
         while (hasMorePosts) {
             try {
                 // Fetch media from WordPress
-                const data = await (0, fetchWordpressData_1.default)(page, wordpressUrl, batch, username, password);
+                const data = await (0, fetchWordpressData_1.default)(page, batch, restApi);
                 const { data: mediaItems, totalPages } = data;
                 // const mediaItems= media.filter((item) => item.id === 17121 );
                 totalPage = totalPages;

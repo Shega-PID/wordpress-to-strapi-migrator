@@ -7,23 +7,21 @@ import { fetchJsonStructure } from "../utils/fetch-json-structure";
 export default ({ strapi }: { strapi: Strapi }) => ({
   async migrateComments(ctx) {
     const { stopPage, batch } = ctx.params;
-    const { username, password,url } = ctx.request.body;
     let page = ctx.params.page;
     let totalPage;
     let message = "";
     let success = true;
     let firstPage = page;
     let hasMorePosts = true;
-    const WORDPRESS_COMMENT_URL = url;
+    const{restApi}=ctx.request.body
     const authorStructure=  await fetchJsonStructure()
     while (hasMorePosts) {
       try {
         const data = await fetchWordpressData(
           page,
-          WORDPRESS_COMMENT_URL,
           batch,
-          username,
-          password
+          restApi
+        
         );
         const { data: wordpressComments, totalPages } = data;
         totalPage = totalPages;

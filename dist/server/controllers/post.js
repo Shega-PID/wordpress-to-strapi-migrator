@@ -9,12 +9,11 @@ const he_1 = __importDefault(require("he"));
 exports.default = ({ strapi }) => ({
     async migratePosts(ctx) {
         const { stopPage, batch } = ctx.params;
-        const { username, password, url } = ctx.request.body;
+        const { restApi } = ctx.request.body;
         let page = ctx.params.page;
         const firstPage = page;
         let success = true;
         let hasMorePosts = true;
-        const WORDPRESS_POST_URL = url;
         const insertImage = async (content) => {
             const imgTags = content.match(/<img[^>]+>/g);
             if (imgTags) {
@@ -69,7 +68,7 @@ exports.default = ({ strapi }) => ({
         let message = "";
         while (hasMorePosts) {
             try {
-                const data = await (0, fetchWordpressData_1.default)(page, WORDPRESS_POST_URL, batch, username, password);
+                const data = await (0, fetchWordpressData_1.default)(page, batch, restApi);
                 console.log({ data });
                 const { data: wordpressPosts, totalPages } = data;
                 totalPage = totalPages;

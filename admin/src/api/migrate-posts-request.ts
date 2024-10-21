@@ -2,106 +2,87 @@ import { request } from "@strapi/helper-plugin";
 
 const migrationRequest = {
   migratePost: async (
-    username: string,
-    password: string,
     startPage: number,
     endPage: number,
     batch: number,
-    url: string
+    restApi: string
   ) => {
     return await request(
       `/w-to-s-migrator/migrate-post/${startPage}/${endPage}/${batch}`,
       {
         method: "POST",
-        body: { username, password, url },
+        body: { restApi },
       }
     );
   },
-  migrateAuthor: async (
-    username: string,
-    password: string,
-    startPage: number,
-    endPage: number,
-    batch: number,
-    url: string,
-    authorAttribute:string[]
-  ) => {
+  migrateAuthor: async () => {
     return await request("/w-to-s-migrator/migrate-author", {
       method: "POST",
-      body: { username, password, url,authorAttribute },
     });
   },
-  migrateUser: async (  username: string,
-    password: string,
-    startPage: number,
-    endPage: number,
-    batch: number,
-    url: string,
-    userAttribute:string[],) => {
-    return await request(`/w-to-s-migrator/migrate-users/${startPage}/${endPage}/${batch}`, {
-      method: "POST",
-      body: { username, password,url,userAttribute },
-    });
+  migrateUser: async (startPage: number, endPage: number, batch: number) => {
+    return await request(
+      `/w-to-s-migrator/migrate-users/${startPage}/${endPage}/${batch}`,
+      {
+        method: "POST",
+      }
+    );
   },
   migrateCategory: async (
-    username: string,
-    password: string,
     startPage: number,
     endPage: number,
     batch: number,
-    url: string,
-    categoryAttribute:string[]
+    restApi: string
   ) => {
     return await request(
       `/w-to-s-migrator/migrate-category/${startPage}/${endPage}/${batch}`,
       {
         method: "POST",
-        body: { username, password, url,categoryAttribute },
+        body: { restApi },
       }
     );
   },
   migrateTag: async (
-    username: string,
-    password: string,
     startPage: number,
     endPage: number,
     batch: number,
-    url: string
+    restApi: string
   ) => {
     return await request(
       `/w-to-s-migrator/migrate-tag/${startPage}/${endPage}/${batch}`,
       {
         method: "POST",
-        body: { username, password, url },
+        body: { restApi },
       }
     );
   },
   migrateMedia: async (
-    username: string,
-    password: string,
     startPage: number,
     endPage: number,
     batch: number,
-    url: string
+    restApi: string
   ) => {
     return await request(
       `/w-to-s-migrator/migrate-media/${startPage}/${endPage}/${batch}`,
       {
         method: "POST",
-        body: { username, password, url },
+        body: { restApi },
       }
     );
   },
-  migrateComment: async (  username: string,
-    password: string,
+  migrateComment: async (
     startPage: number,
     endPage: number,
     batch: number,
-    url: string) => {
-    return await request(`/w-to-s-migrator/migrate-comment/${startPage}/${endPage}/${batch}`, {
-      method: "POST",
-      body: { username, password,url },
-    });
+    restApi: string
+  ) => {
+    return await request(
+      `/w-to-s-migrator/migrate-comment/${startPage}/${endPage}/${batch}`,
+      {
+        method: "POST",
+        body: { restApi },
+      }
+    );
   },
 };
 

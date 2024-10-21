@@ -59,25 +59,25 @@ const useHomePage = () =>{
       setIsMigrating(true)
       let result;
       if(restApi.toLowerCase() === 'categories'){
-        result= await migrationRequest.migrateCategory(authContent?.username,authContent?.pass,startpage,endPage,batch,`${authContent?.restUrl}/${restApi}`,fieldMap);
+        result= await migrationRequest.migrateCategory(startpage,endPage,batch,restApi);
       }
       if(restApi.toLowerCase() === 'comments'){
-        result= await migrationRequest.migrateComment(authContent?.username,authContent?.pass,startpage,endPage,batch,`${authContent?.restUrl}/${restApi}`);
+        result= await migrationRequest.migrateComment(startpage,endPage,batch,restApi);
       }
       if(restApi.toLowerCase() === 'media'){
-        result= await migrationRequest.migrateMedia(authContent?.username,authContent?.pass,startpage,endPage,batch,`${authContent?.restUrl}/${restApi}`);
+        result= await migrationRequest.migrateMedia(startpage,endPage,batch,restApi);
       }
       if(restApi.toLowerCase() === 'tags'){
-        result= await migrationRequest.migrateTag(authContent?.username,authContent?.pass,startpage,endPage,batch,`${authContent?.restUrl}/${restApi}`);
+        result= await migrationRequest.migrateTag(startpage,endPage,batch,restApi);
       }
       if(restApi.toLowerCase() === 'posts'){
-        result= await migrationRequest.migratePost(authContent?.username,authContent?.pass,startpage,endPage,batch,`${authContent?.restUrl}/${restApi}`);
+        result= await migrationRequest.migratePost(startpage,endPage,batch,restApi);
       }
       if(restApi.toLowerCase() === 'author'){
-        result= await migrationRequest.migrateAuthor(authContent?.username,authContent?.pass,startpage,endPage,batch,`${authContent?.restUrl}/${restApi}`,fieldMap);
+        result= await migrationRequest.migrateAuthor();
       }
       if(restApi.toLowerCase() === 'users'){
-        result= await migrationRequest.migrateUser(authContent?.username,authContent?.pass,startpage,endPage,batch,`${authContent?.restUrl}/${restApi}`,fieldMap);
+        result= await migrationRequest.migrateUser(startpage,endPage,batch);
       }
       setResult(result)
       setShowAlert(true)

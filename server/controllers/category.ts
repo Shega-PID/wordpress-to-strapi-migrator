@@ -3,41 +3,37 @@ import fetchWordpressData from "../utils/fetchWordpressData";
 import { mapFields, mapFieldsNest, } from "../utils/mapField";
 import { fetchJsonStructure } from "../utils/fetch-json-structure";
 
-//  = "https://shega.co/wp-json/wp/v2/categories";
+
 export default ({ strapi }: { strapi: Strapi }) => ({
   async migrateCategories(ctx) {
     const { stopPage, batch } = ctx.params;
-    const { username, password, url } = ctx.request.body;
+    const{restApi}=ctx.request.body
     let page = ctx.params.page;
     let totalPage;
     let message = "";
     let success = true;
     let firstPage = page;
     let hasMorePosts = true;
-    const WORDPRESS_CATEGORY_URL = url;
     const authorStructure=  await fetchJsonStructure()
     while (hasMorePosts) {
       try {
         const data = await fetchWordpressData(
           page,
-          WORDPRESS_CATEGORY_URL,
           batch,
-          username,
-          password
+          restApi
         );
         const { data: wordpressCategories, totalPages } = data;
         totalPage = totalPages;
-
         if (page > stopPage || page > totalPage) {
           hasMorePosts = false;
           break;
         }
-        console.log("page plugin", page, "total", totalPage);
 
         if (wordpressCategories.length === 0) {
           hasMorePosts = false;
           break;
         }
+      
         // const strapiCategory = wordpressCategories.map((category) => ({
         //   id: category?.id,
         //   name: category?.name,

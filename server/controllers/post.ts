@@ -6,12 +6,12 @@ import he from 'he';
 export default ({strapi}: {strapi:Strapi}) => ({
     async migratePosts(ctx) {
         const { stopPage, batch } = ctx.params;
-        const{username,password,url}=ctx.request.body
+        const{restApi}=ctx.request.body
         let page = ctx.params.page;
         const firstPage = page;
         let success = true;
         let hasMorePosts = true;
-       const WORDPRESS_POST_URL=url
+    
   
         const insertImage = async (content) => {
           const imgTags = content.match(/<img[^>]+>/g);
@@ -84,10 +84,9 @@ export default ({strapi}: {strapi:Strapi}) => ({
           try {
             const data = await fetchWordpressData(
               page,
-              WORDPRESS_POST_URL,
               batch,
-              username,
-              password
+              restApi
+
             );
             console.log({data})
             const { data: wordpressPosts, totalPages } = data;

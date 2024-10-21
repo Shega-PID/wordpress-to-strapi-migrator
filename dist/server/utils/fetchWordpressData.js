@@ -7,9 +7,12 @@ exports.fetchJsonData = exports.fetchToken = void 0;
 const axios_1 = __importDefault(require("axios"));
 const path = require('path');
 const fs = require('fs');
-async function fetchToken(username, password) {
+async function fetchToken() {
     let token = '';
-    const res = await axios_1.default.post(`https://v2.shega.co/wp-json/jwt-auth/v1/token?username=${username}&password=${password}`, {}, { withCredentials: false });
+    const username = process.env.WORDPRESS_USERNAME;
+    const password = process.env.WORDPRESS_PASSWORD;
+    const url = process.env.WORDPRESS_TOKEN_URL;
+    const res = await axios_1.default.post(`${url}?username=${username}&password=${password}`, {}, { withCredentials: false });
     if (res && res.data && res.data.data && res.data.data.token) {
         token = res.data.data.token;
     }
@@ -19,8 +22,9 @@ async function fetchToken(username, password) {
     return token;
 }
 exports.fetchToken = fetchToken;
-async function fetchWordpressData(page, url, batch, username, password) {
-    const token = await fetchToken(username, password);
+async function fetchWordpressData(page, batch, restApi) {
+    const token = await fetchToken();
+    const url = `${process.env.CONTENT_URL}/${restApi}`;
     if (token) {
         try {
             const response = await axios_1.default.get(url, {
@@ -42,7 +46,7 @@ async function fetchWordpressData(page, url, batch, username, password) {
             };
         }
         catch (error) {
-            strapi.log.error(error.message || (error === null || error === void 0 ? void 0 : error.stack));
+            console.log(error.message || (error === null || error === void 0 ? void 0 : error.stack));
             return {
                 data: [],
                 totalPages: 0

@@ -5,10 +5,12 @@ interface WordpressResponse {
   data: any[];
   totalPages: number;
 }
-export async function fetchToken(username, password) {
+export async function fetchToken() {
   let token = '';
-  
-  const res=  await axios.post(`https://v2.shega.co/wp-json/jwt-auth/v1/token?username=${username}&password=${password}`, {},
+  const username=process.env.WORDPRESS_USERNAME;
+  const password=process.env.WORDPRESS_PASSWORD;
+  const url=process.env.WORDPRESS_TOKEN_URL;
+  const res=  await axios.post(`${url}?username=${username}&password=${password}`, {},
     { withCredentials: false })
     if (res && res.data && res.data.data && res.data.data.token) {
       token = res.data.data.token;
@@ -20,15 +22,13 @@ export async function fetchToken(username, password) {
 
 async function fetchWordpressData(
   page: number,
-  url: string,
   batch: number,
-  username:string,
-  password:string
+  restApi:string
 ): Promise<WordpressResponse> {
 
  
- const token=await fetchToken(username,password)
-    
+ const token=await fetchToken()
+ const url=`${process.env.CONTENT_URL}/${restApi}`;
   if(token){
     try{
     const response = await axios.get<any[]>(url, {
@@ -51,7 +51,7 @@ async function fetchWordpressData(
       totalPages: totalPages
     };
   }catch(error){
-    strapi.log.error(error.message || error?.stack)
+    console.log(error.message || error?.stack)
     return {
       data: [],
       totalPages: 0

@@ -8,18 +8,18 @@ import { fetchJsonStructure } from "../utils/fetch-json-structure";
 export default ({ strapi }: { strapi: Strapi }) => ({
     async migrateTags(ctx) {
         const { stopPage, batch } = ctx.params;
-        const{username,password,url}=ctx.request.body
+        const{restApi}=ctx.request.body
         let page = ctx.params.page;
         let hasMorePosts = true;
         let totalPage;
         let message=''
         let success=true;
         let firstPage = page;
-        const WORDPRESS_TAGS_URL = url;
+
         const authorStructure=  await fetchJsonStructure()
         while (hasMorePosts) {
           try {
-            const data = await fetchWordpressData(page, WORDPRESS_TAGS_URL, batch,username, password);
+            const data = await fetchWordpressData(page, batch,restApi);
             const { data: wordpressTags, totalPages } = data;
             totalPage = totalPages;
             if(firstPage > totalPage ){
