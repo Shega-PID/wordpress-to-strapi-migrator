@@ -1,7 +1,7 @@
 # Strapi plugin WordPress-to-Strapi-migrator
 
 ## Description
-This Strapi plugin allows you to seamlessly migrate your WordPress content to Strapi, including media files, posts/news, categories, authors, users, comments, and tags. The plugin utilizes WordPress's REST API to fetch the necessary data, making the migration process efficient and reliable.
+This Strapi plugin allows you to seamlessly migrate your WordPress content to Strapi, including media files, posts/news, categories, authors, users, comments, and tags. The plugin uses WordPress's REST API to fetch the data, ensuring efficient and reliable migration.
 
 ## Key Features
 * **Media File Migration**: Migrate all your WordPress media files, including images, videos, and documents, to Strapi.
@@ -79,12 +79,18 @@ WORDPRESS_USERNAME=xxx
 WORDPRESS_PASSWORD=xxx
 CONTENT_URL=https://xxx/wp-json/wp/v2 
 ```
-* **To migrate Authors**: First export your authors from WordPress.Then create json file that contain your authors list with **w_authors.json** file name inside your strapi project root directory. Then navigate to left side nav, select w-to-s-migrator, enter **author__** as an input for REST API field and click migrate button.
+* **To migrate Authors**: First export your authors from WordPress.Then create json file that contain your authors list with **w_authors.json** file name inside your strapi project root directory. Then navigate to left side nav, select w-to-s-migrator, enter **author** as an input for REST API field and click migrate button.
+
 * **To migrate Users**: First export your users from WordPress.Then create json file that contain your users list using  **w_users.json** inside your strapi project root directory.Then navigate to left side nav, select w-to-s-migrator, enter start page, end page and batch number and  **users** as an input for REST API field. start page, end page and batch number depending on number of users you have on your WordPress App.
+
 * **To migrate category**: Enter start page, end page and batch number as per your category content and use **categories** as an input for the REST API.
+
 * **To migrate Tag**: Enter start page, end page and batch number as per your category content and use **tags** as an input for the REST API.
+
 * **To migrate comments**: Enter start page, end page and batch number as per your category content and use **comments** as an input for the REST API.
+
 * **To migrate media**: Enter start page, end page and batch number as per your category content and use **media** as an input for the REST API.
+
 * **To migrate post**: Enter start page, end page and batch number as per your category content and use **posts** as an input for the REST API.
 
 
@@ -111,7 +117,7 @@ yarn build or npm run build
 Then return back to root director and start your strapi
 
 ```bash
-yarn develop  or npm run develop
+yarn develop --watch-admin  or npm run develop --watch-admin
 ```
 ## About Shega
 Shega is an information and technology company that offers in-depth insights into Ethiopia’s economy by delivering an integrated media, data, and intelligence solution designed to drive informed decision-making and promote innovation.
