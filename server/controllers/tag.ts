@@ -33,7 +33,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
               hasMorePosts = false;
               break;
             }
-            // const strapiTags = wordpressTags.map((tag) => ({ //uncomment this section and modify so that it fit your senario
+            // const strapiTags = wordpressTags.map((tag) => ({ // uncomment this section and ajust as per your need
             //   id: tag?.id,
             //   name: tag?.name,
             //   slug: tag?.slug
@@ -50,14 +50,14 @@ export default ({ strapi }: { strapi: Strapi }) => ({
             // }));
     
             await Promise.all(
-              wordpressTags.map(async(tag) =>{  //replace worpressTags with strapiTags
+              wordpressTags.map(async(tag) =>{ // replace wordpressTags with strapiTags
                 if(tag){
                   if (tag) {
                     try {
                       const tagFields=  mapFieldsNest(tag,authorStructure?.tags) // comment this line
                       const tagExist = await strapi.query("api::tag.tag").findOne({ where: { id: tag?.id } });
                       if (!tagExist) {
-                        await strapi.service("api::tag.tag").create({ data: tagFields }); // replace tagFields with tag
+                        await strapi.service("api::tag.tag").create({ data: tagFields }); //replace tagFields with strapiTags
                       }else{
                         console.log(`Tag with ${tag?.id} id already exists`)
                       }

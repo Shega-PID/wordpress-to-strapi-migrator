@@ -72,7 +72,7 @@ export default ({strapi}:{strapi:Strapi}) =>({
                 if (!fileExist) {
                  try{
                   const createdFiles =
-                  await strapi.plugins.upload.services.upload.upload({  // modify this mapping section if you got different attributes
+                  await strapi.plugins.upload.services.upload.upload({ // modify this mapping section to fit your needs
                     data: {
                       fileInfo: {
                         name: mediaName ?? '',

@@ -37,7 +37,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
           hasMorePosts = false;
           break;
         }
-        // const strapiComment = wordpressComments.map((comment) => ({  // uncomment this section and modify as you like
+        // const strapiComment = wordpressComments.map((comment) => ({ // uncomment and modify to fit your field requirement
         //   id: comment?.id,
         //   date: comment?.date,
         //   isApproved: comment?.status === "approved" ? true : false,
@@ -50,14 +50,14 @@ export default ({ strapi }: { strapi: Strapi }) => ({
           wordpressComments.map(async (comment) => { // replace wordpressComments with strapiComment
             if (comment) {
               try {
-                const commentsFields=  mapFieldsNest(comment,authorStructure?.comments) // comment this line
+                const commentFields=  mapFieldsNest(comment,authorStructure?.comments) // comment this line
                 const exist = await strapi
-                  .query("api::comment.comment") 
+                  .query("api::comment.comment")
                   .findOne({ where: { id: comment?.id } });
                 if (!exist) {
                   await strapi
                     .service("api::comment.comment")
-                    .create({ data: commentsFields }); // replace commentsFields with comment
+                    .create({ data: commentFields }); // replace commentFields with comment
                 } else {
                   console.log(`Comment with ${comment?.id} already exists`);
                 }

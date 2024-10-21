@@ -1,4 +1,5 @@
 export default [
+
   {
     method: 'POST',
     path: '/migrate-author',

@@ -35,7 +35,6 @@ async function fetchWordpressData(
       params: {
         per_page: batch ?? 10,
         page: page,
-        // 'X-WP-Nonce': 'wp_rest'
       },
       timeout: 3600000,
       headers: {

@@ -36,9 +36,9 @@ export default ({ strapi }: { strapi: Strapi }) => ({
       
         await Promise.all(
           wordpressUsers.map(async (user) => {
-            const userFiels= mapFields(user,authorStructure?.user) // comment this line
+            const userFields= mapFields(user,authorStructure?.user)
           await strapi.plugins["users-permissions"].services.user.add({
-              ...userFiels, // comment this line and modify so that it fit your field requirements
+              ...userFields, // comment this line and add your attributes
             });
            
             console.log(

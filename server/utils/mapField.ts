@@ -6,8 +6,6 @@ export const mapFields = (data:any,fields:string[]) => {
     });
     return result;
   };
-
-
   
 export const mapFieldsNest = (data: any, fields: any[]) => {
   const result: any = {};
@@ -15,7 +13,6 @@ export const mapFieldsNest = (data: any, fields: any[]) => {
   fields.forEach((field) => {
     const [key, value] = field.split(':');
 
-    // Always handle the 'seo' field as nested
     if (key === 'seo') {
       const nestedSeo = value
         .replace(/^\[|\]$/g, '')  

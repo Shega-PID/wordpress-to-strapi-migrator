@@ -13,6 +13,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     async migrateAuthors(ctx) {
       let authorCount=0
       const fileContent = fs.readFileSync(filePath, 'utf8');
+      // const {authorAttribute} = ctx.request.body;
   
    const authorStructure=  await fetchJsonStructure()
     const data = JSON.parse(fileContent);
@@ -22,23 +23,12 @@ export default ({ strapi }: { strapi: Strapi }) => ({
             const authorFields = mapFields(author,authorStructure?.author);
            
             const authorExists = await strapi
-            .query("api::author.author")
+            .query("api::author.author") // if your content name is different replace with author
             .findOne({ where: { id: author?.id } });
              if(!authorExists){
              const createAuthor = await strapi.service("api::author.author").create({
                data: {
-                ...authorFields,
-                slug: author?.name
-                   .toString()
-                   .toLowerCase()
-                   .trim()
-                   .replace(/\s+/g, "-")
-                   .replace(/[^\w\-]+/g, "")
-                   .replace(/\-\-+/g, "-"),
-                 seo: {
-                   metaTitle: author?.name,
-                   metaDescription: author?.name,
-                 },
+                ...authorFields, // if you need to modify the field mapping comment this line of code and write your own mapping
                },
                publishedAt: new Date(),
              });

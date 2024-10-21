@@ -10,7 +10,11 @@ import "../App/App.css";
 import { LoadingIndicatorPage } from "@strapi/helper-plugin";
 import { Information } from '@strapi/icons';
 import CustomAlert from "../../components/Alert";
+import Authorization from '../../components/Authorization';
 import useMigrateCategory from '../../hook/useMigrateCategory';
+import useMigrateTag from '../../hook/useMigrateTag';
+import useMigrateMedia from '../../hook/useMigrateMedia';
+import { log } from 'winston';
 
 const HomePage = () => {
   const {
@@ -36,6 +40,7 @@ const HomePage = () => {
   return (
     <div className="home-page">
       <h1>Migrate your content from WordPress to Strapi seamlessly</h1>
+     {/* <Authorization/> */}
       {isMigrating && <LoadingIndicatorPage />}
       <div className="migrate-content">
         <Migrator
