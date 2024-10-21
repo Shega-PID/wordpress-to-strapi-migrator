@@ -19,17 +19,12 @@ exports.default = ({ strapi }) => ({
             try {
                 const authorFields = (0, mapField_1.mapFields)(author, authorStructure === null || authorStructure === void 0 ? void 0 : authorStructure.author);
                 const authorExists = await strapi
-                    .query("api::author.author")
+                    .query("api::author.author") // if your content name is different replace with author
                     .findOne({ where: { id: author === null || author === void 0 ? void 0 : author.id } });
                 if (!authorExists) {
                     const createAuthor = await strapi.service("api::author.author").create({
                         data: {
-                            ...authorFields,
-                            slug: author === null || author === void 0 ? void 0 : author.name.toString().toLowerCase().trim().replace(/\s+/g, "-").replace(/[^\w\-]+/g, "").replace(/\-\-+/g, "-"),
-                            seo: {
-                                metaTitle: author === null || author === void 0 ? void 0 : author.name,
-                                metaDescription: author === null || author === void 0 ? void 0 : author.name,
-                            },
+                            ...authorFields, // if you need to modify the field mapping comment this line of code and write your own mapping
                         },
                         publishedAt: new Date(),
                     });

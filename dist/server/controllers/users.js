@@ -34,9 +34,9 @@ exports.default = ({ strapi }) => ({
                     break;
                 }
                 await Promise.all(wordpressUsers.map(async (user) => {
-                    const userFiels = (0, mapField_1.mapFields)(user, authorStructure === null || authorStructure === void 0 ? void 0 : authorStructure.user);
+                    const userFields = (0, mapField_1.mapFields)(user, authorStructure === null || authorStructure === void 0 ? void 0 : authorStructure.user);
                     await strapi.plugins["users-permissions"].services.user.add({
-                        ...userFiels,
+                        ...userFields, // comment this line and add your attributes
                     });
                     console.log(`Page ${countUser} ${stopPage} migration completed successfully!`);
                     countUser++;

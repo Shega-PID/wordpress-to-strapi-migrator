@@ -35,7 +35,7 @@ exports.default = ({ strapi }) => ({
                     hasMorePosts = false;
                     break;
                 }
-                // const strapiComment = wordpressComments.map((comment) => ({
+                // const strapiComment = wordpressComments.map((comment) => ({ // uncomment and modify to fit your field requirement
                 //   id: comment?.id,
                 //   date: comment?.date,
                 //   isApproved: comment?.status === "approved" ? true : false,
@@ -46,14 +46,14 @@ exports.default = ({ strapi }) => ({
                 await Promise.all(wordpressComments.map(async (comment) => {
                     if (comment) {
                         try {
-                            const categoryFiels = (0, mapField_1.mapFieldsNest)(comment, authorStructure === null || authorStructure === void 0 ? void 0 : authorStructure.comments);
+                            const commentFields = (0, mapField_1.mapFieldsNest)(comment, authorStructure === null || authorStructure === void 0 ? void 0 : authorStructure.comments); // comment this line
                             const exist = await strapi
                                 .query("api::comment.comment")
                                 .findOne({ where: { id: comment === null || comment === void 0 ? void 0 : comment.id } });
                             if (!exist) {
                                 await strapi
                                     .service("api::comment.comment")
-                                    .create({ data: categoryFiels });
+                                    .create({ data: commentFields }); // replace commentFields with comment
                             }
                             else {
                                 console.log(`Comment with ${comment === null || comment === void 0 ? void 0 : comment.id} already exists`);

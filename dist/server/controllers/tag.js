@@ -35,7 +35,7 @@ exports.default = ({ strapi }) => ({
                     hasMorePosts = false;
                     break;
                 }
-                // const strapiTags = wordpressTags.map((tag) => ({
+                // const strapiTags = wordpressTags.map((tag) => ({ // uncomment this section and ajust as per your need
                 //   id: tag?.id,
                 //   name: tag?.name,
                 //   slug: tag?.slug
@@ -54,11 +54,10 @@ exports.default = ({ strapi }) => ({
                     if (tag) {
                         if (tag) {
                             try {
-                                const tagFeilds = (0, mapField_1.mapFieldsNest)(tag, authorStructure === null || authorStructure === void 0 ? void 0 : authorStructure.tags);
-                                console.log({ tagFeilds });
+                                const tagFields = (0, mapField_1.mapFieldsNest)(tag, authorStructure === null || authorStructure === void 0 ? void 0 : authorStructure.tags); // comment this line
                                 const tagExist = await strapi.query("api::tag.tag").findOne({ where: { id: tag === null || tag === void 0 ? void 0 : tag.id } });
                                 if (!tagExist) {
-                                    await strapi.service("api::tag.tag").create({ data: tagFeilds });
+                                    await strapi.service("api::tag.tag").create({ data: tagFields }); //replace tagFields with strapiTags
                                 }
                                 else {
                                     console.log(`Tag with ${tag === null || tag === void 0 ? void 0 : tag.id} id already exists`);

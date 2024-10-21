@@ -10,34 +10,10 @@ const mapFields = (data, fields) => {
     return result;
 };
 exports.mapFields = mapFields;
-//   export const mapFieldsNest = (data: any, fields: any[]) => {
-//     const result: any = {};
-//     const nested:any={};
-//   let nest={}
-//     fields.forEach((field) => {
-//       const [key, value] = field.split(':');
-//       const seo=field.split(':')[1]
-//       const nestedSeo= seo.replace(/^\[|\]$/g, '') 
-//       .replace(/'/g, '')        
-//       .split(',')             
-//       .map(item => item.trim().replace('-', ':'));
-// nest=nestedSeo
-//       if(nestedSeo.length){
-//         nestedSeo.forEach((nestField) =>{
-//           const[nKey,nValue]=nestField.split(':')
-//           nested[nKey]=data?.[nValue]
-//         })
-//       }else{
-//         result[key] = data?.[value];
-//       }
-//      });
-//     return {...result,nest:nest,};
-//   };
 const mapFieldsNest = (data, fields) => {
     const result = {};
     fields.forEach((field) => {
         const [key, value] = field.split(':');
-        // Always handle the 'seo' field as nested
         if (key === 'seo') {
             const nestedSeo = value
                 .replace(/^\[|\]$/g, '')
