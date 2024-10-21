@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fetchWordpressData_1 = __importDefault(require("../utils/fetchWordpressData"));
 const mapField_1 = require("../utils/mapField");
 const fetch_json_structure_1 = require("../utils/fetch-json-structure");
-// const WORDPRESS_TAGS_URL = "https://shega.co/wp-json/wp/v2/tags";
 exports.default = ({ strapi }) => ({
     async migrateTags(ctx) {
         const { stopPage, batch } = ctx.params;

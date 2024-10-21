@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const fetchWordpressData_1 = __importDefault(require("../utils/fetchWordpressData"));
 const he_1 = __importDefault(require("he"));
-// const WORDPRESS_POST_URL = "https://shega.co/wp-json/wp/v2/posts";
 exports.default = ({ strapi }) => ({
     async migratePosts(ctx) {
         const { stopPage, batch } = ctx.params;

@@ -34,7 +34,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
           break;
         }
       
-        // const strapiCategory = wordpressCategories.map((category) => ({
+        // const strapiCategory = wordpressCategories.map((category) => ({  // uncomment this section of code and modify as you like
         //   id: category?.id,
         //   name: category?.name,
         //   slug: category?.slug,
@@ -46,17 +46,17 @@ export default ({ strapi }: { strapi: Strapi }) => ({
         // }));
 
         await Promise.all(
-          wordpressCategories.map(async (category) => {
+          wordpressCategories.map(async (category) => { // replace wordpressCategories with strapiCategory
             if (category) {
               try {
-                const categoryFiels=  mapFieldsNest(category,authorStructure?.category)
+                const categoryFields=  mapFieldsNest(category,authorStructure?.category) // comment out this line
                 const categoryExists = await strapi
                   .query("api::category.category")
                   .findOne({ where: { id: category?.id } });
                 if (!categoryExists) {
                   await strapi
                     .service("api::category.category")
-                    .create({ data: categoryFiels });
+                    .create({ data: categoryFields }); // replace categoryFields with category
                 }
               } catch (error) {
                 console.error(

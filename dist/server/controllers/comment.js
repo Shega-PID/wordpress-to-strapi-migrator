@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fetchWordpressData_1 = __importDefault(require("../utils/fetchWordpressData"));
 const mapField_1 = require("../utils/mapField");
 const fetch_json_structure_1 = require("../utils/fetch-json-structure");
-// const WORDPRESS_COMMENT_URL = "https://shega.co/wp-json/wp/v2/comments";
 exports.default = ({ strapi }) => ({
     async migrateComments(ctx) {
         const { stopPage, batch } = ctx.params;

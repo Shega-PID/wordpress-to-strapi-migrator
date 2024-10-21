@@ -10,7 +10,6 @@ interface iUnUpdatedId{
 }
 export default ({strapi}:{strapi:Strapi}) =>({
     async downloadUploadMedia(ctx) {
-        // const wordpressUrl = "https://shega.co/wp-json/wp/v2/media";
         const { stopPage, batch } = ctx.params;
         const{username,password,url}=ctx.request.body
         let page = ctx.params.page;
@@ -73,7 +72,7 @@ export default ({strapi}:{strapi:Strapi}) =>({
                 if (!fileExist) {
                  try{
                   const createdFiles =
-                  await strapi.plugins.upload.services.upload.upload({
+                  await strapi.plugins.upload.services.upload.upload({  // modify this mapping section if you got different attributes
                     data: {
                       fileInfo: {
                         name: mediaName ?? '',

@@ -3,8 +3,6 @@ import fetchWordpressData from "../utils/fetchWordpressData";
 import { mapFieldsNest } from "../utils/mapField";
 import { fetchJsonStructure } from "../utils/fetch-json-structure";
 
-// const WORDPRESS_TAGS_URL = "https://shega.co/wp-json/wp/v2/tags";
-
 export default ({ strapi }: { strapi: Strapi }) => ({
     async migrateTags(ctx) {
         const { stopPage, batch } = ctx.params;
@@ -35,7 +33,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
               hasMorePosts = false;
               break;
             }
-            // const strapiTags = wordpressTags.map((tag) => ({
+            // const strapiTags = wordpressTags.map((tag) => ({ //uncomment this section and modify so that it fit your senario
             //   id: tag?.id,
             //   name: tag?.name,
             //   slug: tag?.slug
@@ -52,15 +50,14 @@ export default ({ strapi }: { strapi: Strapi }) => ({
             // }));
     
             await Promise.all(
-              wordpressTags.map(async(tag) =>{
+              wordpressTags.map(async(tag) =>{  //replace worpressTags with strapiTags
                 if(tag){
                   if (tag) {
                     try {
-                      const tagFeilds=  mapFieldsNest(tag,authorStructure?.tags) 
-                      console.log({tagFeilds})
+                      const tagFields=  mapFieldsNest(tag,authorStructure?.tags) // comment this line
                       const tagExist = await strapi.query("api::tag.tag").findOne({ where: { id: tag?.id } });
                       if (!tagExist) {
-                        await strapi.service("api::tag.tag").create({ data: tagFeilds });
+                        await strapi.service("api::tag.tag").create({ data: tagFields }); // replace tagFields with tag
                       }else{
                         console.log(`Tag with ${tag?.id} id already exists`)
                       }

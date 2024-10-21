@@ -3,7 +3,6 @@ import fetchWordpressData from "../utils/fetchWordpressData";
 import { mapFieldsNest } from "../utils/mapField";
 import { fetchJsonStructure } from "../utils/fetch-json-structure";
 
-// const WORDPRESS_COMMENT_URL = "https://shega.co/wp-json/wp/v2/comments";
 export default ({ strapi }: { strapi: Strapi }) => ({
   async migrateComments(ctx) {
     const { stopPage, batch } = ctx.params;
@@ -38,7 +37,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
           hasMorePosts = false;
           break;
         }
-        // const strapiComment = wordpressComments.map((comment) => ({
+        // const strapiComment = wordpressComments.map((comment) => ({  // uncomment this section and modify as you like
         //   id: comment?.id,
         //   date: comment?.date,
         //   isApproved: comment?.status === "approved" ? true : false,
@@ -48,17 +47,17 @@ export default ({ strapi }: { strapi: Strapi }) => ({
         // }));
 
         await Promise.all(
-          wordpressComments.map(async (comment) => {
+          wordpressComments.map(async (comment) => { // replace wordpressComments with strapiComment
             if (comment) {
               try {
-                const categoryFiels=  mapFieldsNest(comment,authorStructure?.comments)
+                const commentsFields=  mapFieldsNest(comment,authorStructure?.comments) // comment this line
                 const exist = await strapi
-                  .query("api::comment.comment")
+                  .query("api::comment.comment") 
                   .findOne({ where: { id: comment?.id } });
                 if (!exist) {
                   await strapi
                     .service("api::comment.comment")
-                    .create({ data: categoryFiels });
+                    .create({ data: commentsFields }); // replace commentsFields with comment
                 } else {
                   console.log(`Comment with ${comment?.id} already exists`);
                 }

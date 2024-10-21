@@ -13,7 +13,6 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     async migrateAuthors(ctx) {
       let authorCount=0
       const fileContent = fs.readFileSync(filePath, 'utf8');
-      // const {authorAttribute} = ctx.request.body;
   
    const authorStructure=  await fetchJsonStructure()
     const data = JSON.parse(fileContent);

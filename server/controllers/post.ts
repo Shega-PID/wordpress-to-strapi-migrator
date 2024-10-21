@@ -2,7 +2,6 @@ import { Strapi } from "@strapi/strapi";
 import fetchWordpressData from "../utils/fetchWordpressData";
 import he from 'he';
 
-// const WORDPRESS_POST_URL = "https://shega.co/wp-json/wp/v2/posts";
 export default ({strapi}: {strapi:Strapi}) => ({
     async migratePosts(ctx) {
         const { stopPage, batch } = ctx.params;
@@ -125,7 +124,7 @@ export default ({strapi}: {strapi:Strapi}) => ({
                       );
                     }
                   }
-                  return {
+                  return { // modify this section to ajust for your own strapi and wordpress field
                     id: post?.id,
                     title: he.decode(post?.title.rendered) ?? "",
                     slug:
@@ -153,7 +152,6 @@ export default ({strapi}: {strapi:Strapi}) => ({
                       metaDescription: he.decode(post?.yoast_head_json?.description),
                       metaImage: featuredImage,
                     },
-                    // blocks:[{__component:'event.agenda-item' ?? '',title:'Agenda',presenter:'Me' ?? ''}],
                     topic: post?.categories[0],
                     author: post?.author ?? 1,
                     tags: post?.tags ?? [],

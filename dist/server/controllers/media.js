@@ -10,7 +10,6 @@ const path = require("path");
 const os = require("os");
 exports.default = ({ strapi }) => ({
     async downloadUploadMedia(ctx) {
-        // const wordpressUrl = "https://shega.co/wp-json/wp/v2/media";
         const { stopPage, batch } = ctx.params;
         const { username, password, url } = ctx.request.body;
         let page = ctx.params.page;

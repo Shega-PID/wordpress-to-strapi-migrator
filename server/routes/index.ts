@@ -1,15 +1,5 @@
 export default [
   {
-    method: 'GET',
-    path: '/',
-    handler: 'myController.index',
-    config: {
-      policies: [],
-      auth:false,
-      middleware:[]
-    },
-  },
-  {
     method: 'POST',
     path: '/migrate-author',
     handler: 'author.migrateAuthors',
