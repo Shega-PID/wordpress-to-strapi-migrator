@@ -20,15 +20,6 @@ To install the package, run:
  or
  yarn add w-to-s-migrator
 ```
-To integrate with strapi: add piece of code to your  /config/plugin.ts/js
-
-```bash
- "w-to-s-migrator": 
-    {
-      enabled: true,
-      resolve:"./node_modules/w-to-s-migrator"
-    }
-```
 Then to start migrating you content follow below instruction:
 * **Create map-strapi-towordpress.json file**: Create json file 'map-strapi-towordpress.json' inside your strapi project root directory and specifiy WordPress to Strapi field. you can modify
 ```bash

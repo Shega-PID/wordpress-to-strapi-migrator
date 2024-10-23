@@ -1,137 +1,159 @@
 .home-page{
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: transparent;
-    color:white;
-    font-size: 20px;
-    width:100%;
-    margin-top: 20px;
-    border: 1px solid black;
-    padding:30px;
-    gap: 30px;
-    
- 
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  color:white;
+  font-size: 20px;
+  width:100%;
+  height: 100vh;
+  margin-top: 20px;
+  padding:30px;
+  gap: 30px;
+}
+.inner-container{
+width: fit-content;
+padding:20px;
+border: 1px solid black;
 }
 
 .home-page h1{
-   text-align: left;
-    color:white;
-    font-size:30px;
-    padding-left: 50px;
+ text-align: left;
+  color:white;
+  font-size:20px;
+  padding-left: 30px;
+  padding-right: 20px;
+ 
 }
 
-
 .migrate-content{
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    margin-top: 45px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-top: 25px;
+  width: 100%;
+
 
 }
 .custom-input-field{
-    display: flex;
-    flex-direction: row;
-    gap:10px;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+  /* justify-content: center;
+  align-items: center; */
 }
 .custom-input-field label{
-   text-align: start;
-   font-size: 14px;
+ text-align: start;
+ font-size: 14px;
 }
 .label-width{
-  width:100px;
+width:100px;
 }
 .label-width1{
-  width:70px;
+width:70px;
 }
 
 .authorization-box{
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: start;
-    width: 500px;
-    gap:10px;
-    padding: 20px;
-    margin-top: 10%;
-    margin-left: 5%;
-    border-radius: 5px;
-    border:1px solid black;
- box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;;
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  width: 500px;
+  gap:10px;
+  padding: 20px;
+  margin-top: 10%;
+  margin-left: 5%;
+  border-radius: 5px;
+  border:1px solid black;
+box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;;
+
 }
 .authorization-box h2{
-     color:white;
-     font-size:16px;
-     margin: 10px 0px;
- }
+   color:white;
+   font-size:16px;
+   margin: 10px 0px;
+}
+
+/* .input-field {
   
-  /* .input-field {
-    
-    width: fit-content;
-  } */
-  
-  .input-container {
-    display: flex;
-    align-items: center;
-    position: relative;
-  /* width:100%; */
-  
-  }
-  
-  .password-toggle {
-    position: absolute;
-    right: 10px;
-    cursor: pointer;
-    color: white;
-  }
-  
-  .password-toggle.visible {
-    color: white;
-  }
-  .custom-alert {
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 600px;
-    z-index: 1000;
-  }
-  .input-field{
-    width:300px;
-  }
-  .input-field1{
-    width:100px;
-  }
-  .input-field2{
-    width:735px;
-  }
-  .migrateContent{
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    flex-wrap: wrap;
-    /* align-items: center; */
-    gap:10px;
-    margin-left: 5%;
-  }
-  .migrateCategory{
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    flex-wrap: wrap;
-    align-items: center;
-    gap:10px;
-    /* margin-left: 5%; */
-  }
-  .field-mapping{
-    display: flex;
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  .migrate-button{
-    padding:20px;
-  }
+  width: fit-content;
+} */
+
+.input-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+/* width:100%; */
+
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  color: white;
+}
+
+.password-toggle.visible {
+  color: white;
+}
+.custom-alert {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 600px;
+  z-index: 1000;
+}
+.input-field{
+  width:300px;
+}
+.input-field1{
+  width:100px;
+}
+.input-field2{
+  width:735px;
+}
+.migrateContent{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  flex-wrap: wrap;
+  /* align-items: center; */
+  gap:10px;
+  margin-left: 5%;
+}
+.migrator-fields{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  flex-wrap: wrap;
+  align-items: center;
+  gap:10px;
+  /* margin-left: 5%; */
+}
+.field-mapping{
+  display: flex;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.migrate-button{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  padding:20px;
+}
+.migrator-button{
+  display: flex;
+  justify-content: end;
+  align-items: end;
+
+}
+.error-message{
+  font-size: 12px;
+  color: red;
+}

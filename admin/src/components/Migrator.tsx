@@ -42,7 +42,7 @@ const Migrator = ({
     <div className="migrateContent">
     
      
-    <div className="migrateCategory">
+    <div className="migrator-fields">
       <InputField
         id="start-page"
         label="Start Page:"
@@ -75,7 +75,7 @@ const Migrator = ({
       />
       <InputField
         id="rest-api"
-        label="REST API:"
+        label="End point:"
         widthCss="input-field1"
         labelCss="label-width1"
         type="string"
@@ -83,7 +83,9 @@ const Migrator = ({
           handleRestApi(event)
         }
       />
-      <SButton
+    
+    </div>
+    <div className="migrator-button">  <SButton
         id="migrate-button"
         onClick={() =>
           handleMigration(startPage, endPage, batch, restApi,fieldMap)
@@ -93,8 +95,7 @@ const Migrator = ({
         endPage={endPage}
         batch={batch}
         restAPI={restApi}
-      />
-    </div>
+      /></div>
     </div>
   );
 };

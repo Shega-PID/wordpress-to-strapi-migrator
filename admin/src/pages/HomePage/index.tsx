@@ -4,17 +4,13 @@
  *
  */
 import Migrator from '../../components/Migrator'
-import SButton from "../../components/CommonButton";
 import useMigrator from "../../hook/useMigrator";
 import "../App/App.css";
 import { LoadingIndicatorPage } from "@strapi/helper-plugin";
 import { Information } from '@strapi/icons';
 import CustomAlert from "../../components/Alert";
-import Authorization from '../../components/Authorization';
 import useMigrateCategory from '../../hook/useMigrateCategory';
-import useMigrateTag from '../../hook/useMigrateTag';
-import useMigrateMedia from '../../hook/useMigrateMedia';
-import { log } from 'winston';
+
 
 const HomePage = () => {
   const {
