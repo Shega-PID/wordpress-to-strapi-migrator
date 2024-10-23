@@ -83,7 +83,9 @@ CONTENT_URL=https://xxx/wp-json/wp/v2
 * **To migrate media**: Enter start page, end page and batch number as per your category content and use **media** as an input for the REST API.
 
 * **To migrate post**: Enter start page, end page and batch number as per your category content and use **posts** as an input for the REST API.
-
+  
+  ## Screenshoot
+![Alt text](https://github.com/shega-media-technology/wordpress-to-strapi-migrator/blob/main/scree-shoot/plugin-image.png)
 
 ## Note That: If you got more complex field mapping and also got static field value. Then follow below instruction
 
@@ -110,6 +112,11 @@ Then return back to root director and start your strapi
 ```bash
 yarn develop --watch-admin  or npm run develop --watch-admin
 ```
+### Top Contributor
+Melake Wubshet
+https://github.com/Melak12
+Bedada Bekele
+https://github.com/codefHome
 ## About Shega
 Shega is an information and technology company that offers in-depth insights into Ethiopia’s economy by delivering an integrated media, data, and intelligence solution designed to drive informed decision-making and promote innovation.
 More at [Visit our website](https://shega.co) 
