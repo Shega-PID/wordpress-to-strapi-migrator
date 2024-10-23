@@ -70,19 +70,19 @@ WORDPRESS_USERNAME=xxx
 WORDPRESS_PASSWORD=xxx
 CONTENT_URL=https://xxx/wp-json/wp/v2 
 ```
-* **To migrate Authors**: First export your authors from WordPress.Then create json file that contain your authors list with **w_authors.json** file name inside your strapi project root directory. Then navigate to left side nav, select w-to-s-migrator, enter **author** as an input for REST API field and click migrate button.
+* **To migrate Authors**: First export your authors from WordPress.Then create json file that contain your authors list with **w_authors.json** file name inside your strapi project root directory. Then navigate to left side nav, select w-to-s-migrator, enter **author** as an input for end point field and click migrate button.
 
-* **To migrate Users**: First export your users from WordPress.Then create json file that contain your users list using  **w_users.json** inside your strapi project root directory.Then navigate to left side nav, select w-to-s-migrator, enter start page, end page and batch number and  **users** as an input for REST API field. start page, end page and batch number depending on number of users you have on your WordPress App.
+* **To migrate Users**: First export your users from WordPress.Then create json file that contain your users list using  **w_users.json** inside your strapi project root directory.Then navigate to left side nav, select w-to-s-migrator, enter start page, end page and batch number and  **users** as an input for end point field. start page, end page and batch number depending on number of users you have on your WordPress App.
 
-* **To migrate category**: Enter start page, end page and batch number as per your category content and use **categories** as an input for the REST API.
+* **To migrate category**: Enter start page, end page and batch number as per your category content and use **categories** as an input for the end point.
 
-* **To migrate Tag**: Enter start page, end page and batch number as per your category content and use **tags** as an input for the REST API.
+* **To migrate Tag**: Enter start page, end page and batch number as per your category content and use **tags** as an input for the end point.
 
-* **To migrate comments**: Enter start page, end page and batch number as per your category content and use **comments** as an input for the REST API.
+* **To migrate comments**: Enter start page, end page and batch number as per your category content and use **comments** as an input for the end point.
 
-* **To migrate media**: Enter start page, end page and batch number as per your category content and use **media** as an input for the REST API.
+* **To migrate media**: Enter start page, end page and batch number as per your category content and use **media** as an input for the end point.
 
-* **To migrate post**: Enter start page, end page and batch number as per your category content and use **posts** as an input for the REST API.
+* **To migrate post**: Enter start page, end page and batch number as per your category content and use **posts** as an input for the end point.
   
   ## Screenshoot
 ![Alt text](https://github.com/shega-media-technology/wordpress-to-strapi-migrator/blob/main/scree-shoot/plugin-image.png)
@@ -113,10 +113,9 @@ Then return back to root director and start your strapi
 yarn develop --watch-admin  or npm run develop --watch-admin
 ```
 ### Top Contributor
-Melake Wubshet
-https://github.com/Melak12
-Bedada Bekele
-https://github.com/codefHome
+- [Melake Wubshet](https://github.com/Melak12)
+- [Bedada Bekele](https://github.com/codefHome)
+
 ## About Shega
 Shega is an information and technology company that offers in-depth insights into Ethiopia’s economy by delivering an integrated media, data, and intelligence solution designed to drive informed decision-making and promote innovation.
 More at [Visit our website](https://shega.co) 
