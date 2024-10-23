@@ -3,7 +3,7 @@
  */
 const path = require("path");
 import { Strapi } from "@strapi/strapi";
-const fs = require('fs');
+const fs = require("fs");
 import { fetchJsonData } from "../utils/fetchWordpressData";
 import { mapFields } from "../utils/mapField";
 import { fetchJsonStructure } from "../utils/fetch-json-structure";
@@ -11,14 +11,12 @@ const filePath = path.join("./w_users.json");
 export default ({ strapi }: { strapi: Strapi }) => ({
   async migrateUser(ctx) {
     const { stopPage, batch } = ctx.params;
-    // const {userAttribute} = ctx.request.body;
     let page = ctx.params.page;
     let hasMorePosts = true;
     let totalPage;
     let countUser = page;
     let firstPage = page;
-    const authorStructure=  await fetchJsonStructure()
-    // let increment=page;
+    const authorStructure = await fetchJsonStructure();
     while (hasMorePosts) {
       try {
         const data = await fetchJsonData(firstPage, filePath, batch, stopPage);
@@ -33,14 +31,14 @@ export default ({ strapi }: { strapi: Strapi }) => ({
           hasMorePosts = false;
           break;
         }
-      
+
         await Promise.all(
           wordpressUsers.map(async (user) => {
-            const userFields= mapFields(user,authorStructure?.user)
-          await strapi.plugins["users-permissions"].services.user.add({
+            const userFields = mapFields(user, authorStructure?.user);
+            await strapi.plugins["users-permissions"].services.user.add({
               ...userFields, // comment this line and add your attributes
             });
-           
+
             console.log(
               `Page ${countUser} ${stopPage} migration completed successfully!`
             );
@@ -48,7 +46,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
           })
         );
       } catch (error) {
-        console.log(error.stack,error.message)
+        console.log(error.stack, error.message);
         break;
       }
     }

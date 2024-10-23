@@ -12,16 +12,11 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     let success = true;
     let firstPage = page;
     let hasMorePosts = true;
-    const{restApi}=ctx.request.body
-    const authorStructure=  await fetchJsonStructure()
+    const { restApi } = ctx.request.body;
+    const authorStructure = await fetchJsonStructure();
     while (hasMorePosts) {
       try {
-        const data = await fetchWordpressData(
-          page,
-          batch,
-          restApi
-        
-        );
+        const data = await fetchWordpressData(page, batch, restApi);
         const { data: wordpressComments, totalPages } = data;
         totalPage = totalPages;
         if (firstPage > totalPage) {
@@ -47,10 +42,14 @@ export default ({ strapi }: { strapi: Strapi }) => ({
         // }));
 
         await Promise.all(
-          wordpressComments.map(async (comment) => { // replace wordpressComments with strapiComment
+          wordpressComments.map(async (comment) => {
+            // replace wordpressComments with strapiComment
             if (comment) {
               try {
-                const commentFields=  mapFieldsNest(comment,authorStructure?.comments) // comment this line
+                const commentFields = mapFieldsNest(
+                  comment,
+                  authorStructure?.comments
+                ); // comment this line
                 const exist = await strapi
                   .query("api::comment.comment")
                   .findOne({ where: { id: comment?.id } });
