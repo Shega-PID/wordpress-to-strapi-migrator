@@ -85,7 +85,7 @@ CONTENT_URL=https://xxx/wp-json/wp/v2
 * **To migrate post**: Enter start page, end page and batch number as per your category content and use **posts** as an input for the end point.
   
   ## Screenshoot
-![Alt text](https://github.com/shega-media-technology/wordpress-to-strapi-migrator/blob/main/scree-shoot/plugin-image.png)
+![Alt text](https://github.com/Shega-PID/wordpress-to-strapi-migrator/blob/main/scree-shoot/my-plugin.png)
 
 ## Note That: If you got more complex field mapping and also got static field value. Then follow below instruction
 
