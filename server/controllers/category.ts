@@ -1,27 +1,22 @@
 import { Strapi } from "@strapi/strapi";
 import fetchWordpressData from "../utils/fetchWordpressData";
-import { mapFields, mapFieldsNest, } from "../utils/mapField";
+import { mapFieldsNest } from "../utils/mapField";
 import { fetchJsonStructure } from "../utils/fetch-json-structure";
-
 
 export default ({ strapi }: { strapi: Strapi }) => ({
   async migrateCategories(ctx) {
     const { stopPage, batch } = ctx.params;
-    const{restApi}=ctx.request.body
+    const { restApi } = ctx.request.body;
     let page = ctx.params.page;
     let totalPage;
     let message = "";
-    let success = true;
+    let success = false;
     let firstPage = page;
     let hasMorePosts = true;
-    const authorStructure=  await fetchJsonStructure()
+    const authorStructure = await fetchJsonStructure();
     while (hasMorePosts) {
       try {
-        const data = await fetchWordpressData(
-          page,
-          batch,
-          restApi
-        );
+        const data = await fetchWordpressData(page, batch, restApi);
         const { data: wordpressCategories, totalPages } = data;
         totalPage = totalPages;
         if (page > stopPage || page > totalPage) {
@@ -33,7 +28,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
           hasMorePosts = false;
           break;
         }
-      
+
         // const strapiCategory = wordpressCategories.map((category) => ({ // uncomment and modify to fit your scenario
         //   id: category?.id,
         //   name: category?.name,
@@ -46,10 +41,14 @@ export default ({ strapi }: { strapi: Strapi }) => ({
         // }));
 
         await Promise.all(
-          wordpressCategories.map(async (category) => { // replace wordpressCategories with strapiCategory
+          wordpressCategories.map(async (category) => {
+            // replace wordpressCategories with strapiCategory
             if (category) {
               try {
-                const categoryFields=  mapFieldsNest(category,authorStructure?.category) // comment this line
+                const categoryFields = mapFieldsNest(
+                  category,
+                  authorStructure?.category
+                ); // comment this line
                 const categoryExists = await strapi
                   .query("api::category.category")
                   .findOne({ where: { id: category?.id } });
@@ -67,7 +66,8 @@ export default ({ strapi }: { strapi: Strapi }) => ({
             }
           })
         );
-        message = "migration completed successfully!";
+        message = "Categories migration completed successfully!";
+        success = true;
         console.log(`Page ${page} migration completed successfully!`);
         page++;
       } catch (error) {

@@ -1,4 +1,4 @@
-# Contributing to React-Modular-Boilerplate
+# Contributing to Strapi
 
 👍🎉 First off, thanks for taking the time to contribute! 🎉👍
 

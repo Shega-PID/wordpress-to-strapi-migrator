@@ -46,6 +46,7 @@ const InputField = ({
   };
 
   return (
+    <div className="">
     <div className='custom-input-field'>
       <label className={labelCss} htmlFor={id}>{label}</label>
       <div className='input-container'>
@@ -55,6 +56,7 @@ const InputField = ({
           type={type === "password" ? passwordType : type}
           placeholder={placeholder}
           onChange={handleChange}
+          min={type === "number" ? "1" : undefined}
         />
         {type === "password" && (
           <svg
@@ -75,8 +77,12 @@ const InputField = ({
           </svg>
         )}
       </div>
-      {error && <p className="error-message">{error}</p>}
+   
     </div>
+  
+    {error && <p className="error-message">{error}</p>}
+    </div>
+
   );
 };
 

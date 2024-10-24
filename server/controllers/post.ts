@@ -8,7 +8,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     const { restApi } = ctx.request.body;
     let page = ctx.params.page;
     const firstPage = page;
-    let success = true;
+    let success = false;
     let hasMorePosts = true;
 
     const insertImage = async (content) => {
@@ -17,11 +17,9 @@ export default ({ strapi }: { strapi: Strapi }) => ({
       if (imgTags) {
         let updatedContent = content;
         for (const imgTag of imgTags) {
-          // Extract the media ID from the class attribute
           const mediaId = imgTag.match(/wp-image-(\d+)/);
 
           if (mediaId) {
-            // Find the media by the extracted ID
             try {
               const media = await strapi.query("plugin::upload.file").findOne({
                 where: {
@@ -30,14 +28,11 @@ export default ({ strapi }: { strapi: Strapi }) => ({
               });
 
               if (media) {
-                // Create a new img tag with updated src and srcset
                 let newImgTag = imgTag;
                 newImgTag = newImgTag.replace(
                   /src=\"([^"]*)"/,
                   `src="${media?.url}"`
                 );
-
-                // Extract the srcset URLs and update them
                 const srcsetMatch = imgTag.match(/srcset="([^"]*)"/);
                 if (srcsetMatch) {
                   const srcsetUrls = srcsetMatch[1]
@@ -107,6 +102,8 @@ export default ({ strapi }: { strapi: Strapi }) => ({
                       where: { id: post.featured_media },
                     });
                 } catch (error) {
+                  message = error?.stack?.message;
+                  success = false;
                   console.error(
                     `Error fetching featured media for post ID ${post.id}: `,
                     error
@@ -147,7 +144,6 @@ export default ({ strapi }: { strapi: Strapi }) => ({
                   ),
                   metaImage: featuredImage,
                 },
-                // blocks:[{__component:'event.agenda-item' ?? '',title:'Agenda',presenter:'Me' ?? ''}],
                 topic: post?.categories[0],
                 author: post?.author ?? 1,
                 tags: post?.tags ?? [],
@@ -160,6 +156,8 @@ export default ({ strapi }: { strapi: Strapi }) => ({
               };
             } catch (error) {
               console.log(error);
+              message = error?.stack?.message;
+              success = false;
             }
           })
         );
@@ -181,15 +179,18 @@ export default ({ strapi }: { strapi: Strapi }) => ({
                   `Error creating post with ID ${post.id}: `,
                   error
                 );
+                message = error?.stack?.message;
+                success = false;
               }
             }
           })
         );
-        message = "migration completed successfully!";
-        console.log(`Page ${page} migration completed successfully!`);
+        message = "Posts migration completed successfully!";
+        success = true;
+        console.log(`Posts ${page} migration completed successfully!`);
         page++;
       } catch (error) {
-        message = `${error.message} || ${error.stack}`;
+        message = `${error.stack?.message}`;
         success = false;
         break;
       }

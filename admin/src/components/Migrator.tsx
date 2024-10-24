@@ -1,7 +1,6 @@
+
 import SButton from "./CommonButton";
 import InputField from "./InputField";
-import useMigrateCategory from "../hook/useMigrateCategory";
-import useMigrator from "../hook/useMigrator";
 
 interface MigratorProps {
   handleStartPage: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -37,7 +36,7 @@ const Migrator = ({
   label,
   fieldMap,
 }: MigratorProps) => {
- 
+
   return (
     <div className="migrateContent">
     
@@ -95,6 +94,7 @@ const Migrator = ({
         endPage={endPage}
         batch={batch}
         restAPI={restApi}
+        state={restApi !== '' ? false : true}
       /></div>
     </div>
   );

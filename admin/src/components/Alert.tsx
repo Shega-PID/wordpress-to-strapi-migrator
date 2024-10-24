@@ -1,16 +1,15 @@
 import { Alert } from '@strapi/design-system/Alert';
 import { ReactNode, useState } from 'react';
-import useHomePage from '../hook/useMigrator';
 
 interface AlertProps{
   variant:string;
   icon:ReactNode;
   message:string;
+  handleClose:() => void;
 }
-const CustomAlert = ({variant,icon,message}:AlertProps) => {
-const{isVisible,handleClose} = useHomePage()
+const CustomAlert = ({variant,icon,message,handleClose}:AlertProps) => {
+
   return (
-    isVisible ? ( 
     <Alert className='custom-alert'
       variant={variant}
       icon={icon}
@@ -19,7 +18,7 @@ const{isVisible,handleClose} = useHomePage()
     >
       {message}
     </Alert>
-    ) : null
+  
   );
 };
 

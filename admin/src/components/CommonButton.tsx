@@ -8,11 +8,12 @@ interface IButton{
     endPage:number;
     batch:number;
     restAPI:string;
+    state:boolean;
 }
 
-const SButton = ({label,onClick,id,startPage,restAPI,endPage,batch}:IButton) => {
+const SButton = ({label,onClick,id,startPage,state,restAPI,endPage,batch}:IButton) => {
   return (
-    <Button className="migrate-button" id={id} onClick={() => onClick(startPage,endPage,batch,restAPI)}>{label}</Button>
+    <Button disabled={state} className="migrate-button" id={id} onClick={() => onClick(startPage,endPage,batch,restAPI)}>{label}</Button>
   )
 }
 

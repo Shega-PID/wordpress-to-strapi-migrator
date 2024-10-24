@@ -9,7 +9,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     let page = ctx.params.page;
     let totalPage;
     let message = "";
-    let success = true;
+    let success = false;
     let firstPage = page;
     let hasMorePosts = true;
     const { restApi } = ctx.request.body;
@@ -50,13 +50,21 @@ export default ({ strapi }: { strapi: Strapi }) => ({
                   comment,
                   authorStructure?.comments
                 ); // comment this line
+                const newFields = {
+                  ...commentFields,
+                  body:
+                    comment?.content?.rendered?.replace(
+                      /<\/?[^>]+(>|$)/g,
+                      ""
+                    ) ?? "",
+                };
                 const exist = await strapi
                   .query("api::comment.comment")
                   .findOne({ where: { id: comment?.id } });
                 if (!exist) {
                   await strapi
                     .service("api::comment.comment")
-                    .create({ data: commentFields }); // replace commentFields with comment
+                    .create({ data: newFields }); // replace commentFields with comment
                 } else {
                   console.log(`Comment with ${comment?.id} already exists`);
                 }
@@ -69,8 +77,9 @@ export default ({ strapi }: { strapi: Strapi }) => ({
             }
           })
         );
-        message = "migration completed successfully!";
-        console.log(`Page ${page} migration completed successfully!`);
+        message = "Comments migration completed successfully!";
+        success = true;
+        console.log(`Comments ${page} migration completed successfully!`);
         page++;
       } catch (error) {
         message = `${error.message} || ${error.stack}`;

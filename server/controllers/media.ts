@@ -11,21 +11,23 @@ interface iUnUpdatedId {
 export default ({ strapi }: { strapi: Strapi }) => ({
   async downloadUploadMedia(ctx) {
     const { stopPage, batch } = ctx.params;
-    const { username, password, url } = ctx.request.body;
     let page = ctx.params.page;
     let message = "";
     let totalPage;
     const unUpdatedMediaId: iUnUpdatedId[] = [];
     const firstPage = page;
-    let success = true;
+    let success = false;
     let hasMorePosts = true;
     const { restApi } = ctx.request.body;
     while (hasMorePosts) {
       try {
         // Fetch media from WordPress
-        const data = await fetchWordpressData(page, batch, restApi);
+        const data = await fetchWordpressData(
+          Number(page),
+          Number(batch),
+          restApi
+        );
         const { data: mediaItems, totalPages } = data;
-        // const mediaItems= media.filter((item) => item.id === 17121 );
         totalPage = totalPages;
         if (page == stopPage) {
           hasMorePosts = false;
@@ -69,10 +71,12 @@ export default ({ strapi }: { strapi: Strapi }) => ({
           const fileExist = await strapi.query("plugin::upload.file").findOne({
             where: { id: media.id },
           });
+          console.log({ fileExist });
           if (!fileExist) {
+            let createdFiles;
             try {
-              const createdFiles =
-                await strapi.plugins.upload.services.upload.upload({
+              createdFiles = await strapi.plugins.upload.services.upload.upload(
+                {
                   // modify this mapping section to fit your needs
                   data: {
                     fileInfo: {
@@ -98,7 +102,8 @@ export default ({ strapi }: { strapi: Strapi }) => ({
                     },
                   },
                   files: file,
-                });
+                }
+              );
               await strapi.query("plugin::upload.file").update({
                 where: { id: createdFiles["0"].id },
                 data: {
@@ -108,8 +113,12 @@ export default ({ strapi }: { strapi: Strapi }) => ({
 
               console.log(`Uploaded media to Strapi: ${fileName}`);
             } catch (error) {
-              unUpdatedMediaId.push({ name: media.name, id: media.id });
+              unUpdatedMediaId.push({
+                name: createdFiles[0]?.id,
+                id: media.id,
+              });
               console.log(error.stack, media.id, error?.stack.message, error);
+              message = error?.stack.message;
             }
           } else {
             console.log(`Media with ${media.id} already exists`);
@@ -118,9 +127,9 @@ export default ({ strapi }: { strapi: Strapi }) => ({
         page++;
         // Use Promise.all to wait for all the upload promises to complete
         await Promise.all(uploadPromises);
-        message = "migration completed successfully!";
+        message = "Media migration completed successfully!";
         success = true;
-        console.log(`Page ${page} uploaded completed successfully!`);
+        console.log(`Media ${page} uploaded completed successfully!`);
         console.log({ unUpdatedMediaId });
       } catch (error) {
         if (axios.isAxiosError(error)) {
