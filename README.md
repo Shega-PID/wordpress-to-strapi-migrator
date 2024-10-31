@@ -16,9 +16,9 @@ This Strapi plugin allows you to seamlessly migrate your WordPress content to St
 ## Instruction
 To install the package, run:
  ```bash
- npm install w-to-s-migrator
+npm i w-to-s-migrator-plugin
  or
- yarn add w-to-s-migrator
+ yarn add w-to-s-migrator-plugin
 ```
 Then to start migrating you content follow below instruction:
 * **Create map-strapi-towordpress.json file**: Create json file 'map-strapi-towordpress.json' inside your strapi project root directory and specifiy WordPress to Strapi field. you can modify
