@@ -1,5 +1,5 @@
 {
-  "name": "w-to-s-migrator",
+  "name": "w-to-s-migrator-plugin",
   "version": "0.0.1",
   "description": "This Strapi plugin allows you to seamlessly migrate your WordPress content to Strapi, including media files, posts/news, categories, authors, users, comments, and tags. The plugin uses WordPress's REST API to fetch the data, ensuring efficient and reliable migration.",
   "license": "MIT",
@@ -46,7 +46,7 @@
     "npm": ">=6.0.0"
   },
   "strapi": {
-    "name": "w-to-s-migrator",
+    "name": "w-to-s-migrator-plugin",
     "description": "This Strapi plugin allows you to seamlessly migrate your WordPress content to Strapi, including media files, posts/news, categories, authors, users, comments, and tags. The plugin uses WordPress's REST API to fetch the data, ensuring efficient and reliable migration.",
     "kind": "plugin"
   }
