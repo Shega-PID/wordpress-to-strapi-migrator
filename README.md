@@ -125,3 +125,8 @@ More at [Visit our website](https://shega.co)
 - 🐞 Create requests, submit bugs, suggest new features
 - ☄️  Share to your friends and collegues
 - 🔥 Follow us on [Twitter]([https://twitter.com/MelakeWub](https://twitter.com/shegahq)) and [LinkedIn](https://www.linkedin.com/company/shegahq)
+
+###  Contact Info
+dev@shega.org
+melake@shega.org
+bedada@shega.org
