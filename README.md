@@ -127,6 +127,6 @@ More at [Visit our website](https://shega.co)
 - 🔥 Follow us on [Twitter]([https://twitter.com/MelakeWub](https://twitter.com/shegahq)) and [LinkedIn](https://www.linkedin.com/company/shegahq)
 
 ###  Contact Info
-dev@shega.org
-melake@shega.org
-bedada@shega.org
+- dev@shega.org
+- melake@shega.org
+- bedada@shega.org
