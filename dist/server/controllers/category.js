@@ -13,7 +13,7 @@ exports.default = ({ strapi }) => ({
         let page = ctx.params.page;
         let totalPage;
         let message = "";
-        let success = true;
+        let success = false;
         let firstPage = page;
         let hasMorePosts = true;
         const authorStructure = await (0, fetch_json_structure_1.fetchJsonStructure)();
@@ -41,6 +41,7 @@ exports.default = ({ strapi }) => ({
                 //   },
                 // }));
                 await Promise.all(wordpressCategories.map(async (category) => {
+                    // replace wordpressCategories with strapiCategory
                     if (category) {
                         try {
                             const categoryFields = (0, mapField_1.mapFieldsNest)(category, authorStructure === null || authorStructure === void 0 ? void 0 : authorStructure.category); // comment this line
@@ -58,7 +59,8 @@ exports.default = ({ strapi }) => ({
                         }
                     }
                 }));
-                message = "migration completed successfully!";
+                message = "Categories migration completed successfully!";
+                success = true;
                 console.log(`Page ${page} migration completed successfully!`);
                 page++;
             }

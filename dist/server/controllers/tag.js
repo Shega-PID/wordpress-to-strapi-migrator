@@ -14,7 +14,7 @@ exports.default = ({ strapi }) => ({
         let hasMorePosts = true;
         let totalPage;
         let message = '';
-        let success = true;
+        let success = false;
         let firstPage = page;
         const authorStructure = await (0, fetch_json_structure_1.fetchJsonStructure)();
         while (hasMorePosts) {
@@ -69,9 +69,10 @@ exports.default = ({ strapi }) => ({
                         }
                     }
                 }));
-                message = 'migration completed successfully!';
+                message = 'Tags migration completed successfully!';
+                success = true;
                 page++;
-                console.log(`Page ${page} migration completed successfully!`);
+                console.log(`Tags ${page} migration completed successfully!`);
             }
             catch (error) {
                 message = `${error.message} || ${error.stack}`;

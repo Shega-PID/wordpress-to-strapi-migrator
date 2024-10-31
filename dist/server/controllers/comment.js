@@ -12,7 +12,7 @@ exports.default = ({ strapi }) => ({
         let page = ctx.params.page;
         let totalPage;
         let message = "";
-        let success = true;
+        let success = false;
         let firstPage = page;
         let hasMorePosts = true;
         const { restApi } = ctx.request.body;
@@ -44,16 +44,22 @@ exports.default = ({ strapi }) => ({
                 //   post: comment?.post,
                 // }));
                 await Promise.all(wordpressComments.map(async (comment) => {
+                    var _a, _b, _c;
+                    // replace wordpressComments with strapiComment
                     if (comment) {
                         try {
                             const commentFields = (0, mapField_1.mapFieldsNest)(comment, authorStructure === null || authorStructure === void 0 ? void 0 : authorStructure.comments); // comment this line
+                            const newFields = {
+                                ...commentFields,
+                                body: (_c = (_b = (_a = comment === null || comment === void 0 ? void 0 : comment.content) === null || _a === void 0 ? void 0 : _a.rendered) === null || _b === void 0 ? void 0 : _b.replace(/<\/?[^>]+(>|$)/g, "")) !== null && _c !== void 0 ? _c : "",
+                            };
                             const exist = await strapi
                                 .query("api::comment.comment")
                                 .findOne({ where: { id: comment === null || comment === void 0 ? void 0 : comment.id } });
                             if (!exist) {
                                 await strapi
                                     .service("api::comment.comment")
-                                    .create({ data: commentFields }); // replace commentFields with comment
+                                    .create({ data: newFields }); // replace commentFields with comment
                             }
                             else {
                                 console.log(`Comment with ${comment === null || comment === void 0 ? void 0 : comment.id} already exists`);
@@ -64,8 +70,9 @@ exports.default = ({ strapi }) => ({
                         }
                     }
                 }));
-                message = "migration completed successfully!";
-                console.log(`Page ${page} migration completed successfully!`);
+                message = "Comments migration completed successfully!";
+                success = true;
+                console.log(`Comments ${page} migration completed successfully!`);
                 page++;
             }
             catch (error) {
