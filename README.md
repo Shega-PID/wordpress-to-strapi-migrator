@@ -130,3 +130,8 @@ More at [Visit our website](https://shega.co)
 - dev@shega.org
 - melake@shega.org
 - bedada@shega.org
+
+
+## Compatibility
+Stay tuned for Strapi Version 5 support.  
+Currently, the plugin only supports Strapi versions below 5.

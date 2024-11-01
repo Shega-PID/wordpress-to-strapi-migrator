@@ -7,6 +7,10 @@
     "name": "Shega",
     "email":"dev@shega.org"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Shega-PID/wordpress-to-strapi-migrator"
+  },
   "maintainers": [
     {
       "name": "Shega"
@@ -43,7 +47,8 @@
   },
   "engines": {
     "node": ">=18.0.0 <=20.x.x",
-    "npm": ">=6.0.0"
+    "npm": ">=6.0.0",
+    "strapi": "<5.0.0"
   },
   "strapi": {
     "name": "w-to-s-migrator-plugin",
