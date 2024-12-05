@@ -1,12 +1,7 @@
-"use strict";
-const path$1 = require("path");
-const fs$2 = require("fs");
-const strapi$1 = require("@strapi/strapi");
-const os = require("os");
-const _interopDefault = (e) => e && e.__esModule ? e : { default: e };
-const path__default = /* @__PURE__ */ _interopDefault(path$1);
-const fs__default = /* @__PURE__ */ _interopDefault(fs$2);
-const os__default = /* @__PURE__ */ _interopDefault(os);
+import path$1 from "path";
+import fs$2 from "fs";
+import { factories } from "@strapi/strapi";
+import os from "os";
 const bootstrap = ({ strapi: strapi2 }) => {
 };
 const destroy = ({ strapi: strapi2 }) => {
@@ -52,14 +47,14 @@ const fetchJsonStructure = async () => {
   const jsonData = JSON.parse(jsonFile);
   return jsonData;
 };
-const author = strapi$1.factories.createCoreController("api::author.author", ({ strapi: strapi2 }) => ({
+const author = factories.createCoreController("api::author.author", ({ strapi: strapi2 }) => ({
   async migrateAuthors(ctx) {
     let message = "";
     let success = false;
     let authorCount = 0;
     try {
-      const filePath = path__default.default.join("./w_authors.json");
-      const fileContent = fs__default.default.readFileSync(filePath, "utf8");
+      const filePath = path$1.join("./w_authors.json");
+      const fileContent = fs$2.readFileSync(filePath, "utf8");
       const authorStructure = await fetchJsonStructure();
       const data = JSON.parse(fileContent);
       for (const author2 of data.author) {
@@ -2514,7 +2509,7 @@ async function fetchJsonData(page, filePath, batch, stopPage) {
     throw new Error("Error reading or parsing the JSON file");
   }
 }
-const category = strapi$1.factories.createCoreController("api::category.category", ({ strapi: strapi2 }) => ({
+const category = factories.createCoreController("api::category.category", ({ strapi: strapi2 }) => ({
   async migrateCategories(ctx) {
     const { stopPage, batch } = ctx.params;
     const { restApi } = ctx.request.body;
@@ -2577,7 +2572,7 @@ const category = strapi$1.factories.createCoreController("api::category.category
     });
   }
 }));
-const tag = strapi$1.factories.createCoreController("api::tag.tag", {
+const tag = factories.createCoreController("api::tag.tag", {
   async migrateTags(ctx) {
     const { stopPage, batch } = ctx.params;
     const { restApi } = ctx.request.body;
@@ -2648,7 +2643,7 @@ const tag = strapi$1.factories.createCoreController("api::tag.tag", {
   }
 });
 const mime = require("mime-types");
-const media = strapi$1.factories.createCoreController(
+const media = factories.createCoreController(
   "plugin::upload.file",
   ({ strapi: strapi2 }) => ({
     async downloadUploadMedia(ctx) {
@@ -2675,8 +2670,8 @@ const media = strapi$1.factories.createCoreController(
             hasMorePosts = false;
             break;
           }
-          const downloadedDir = path__default.default.join(__dirname, "downloaded");
-          await fs__default.default.promises.mkdir(downloadedDir, { recursive: true });
+          const downloadedDir = path$1.join(__dirname, "downloaded");
+          await fs$2.promises.mkdir(downloadedDir, { recursive: true });
           const uploadPromises = mediaItems.map(async (media2) => {
             const { source_url, id } = media2;
             const mediaUrl = source_url;
@@ -2685,9 +2680,9 @@ const media = strapi$1.factories.createCoreController(
               timeout: 36e5
             });
             const buffer = Buffer.from(fileResponse.data, "binary");
-            const fileName = path__default.default.basename(mediaUrl);
-            const filePath = path__default.default.join(os__default.default.tmpdir(), fileName);
-            await fs__default.default.promises.writeFile(filePath, buffer);
+            const fileName = path$1.basename(mediaUrl);
+            const filePath = path$1.join(os.tmpdir(), fileName);
+            await fs$2.promises.writeFile(filePath, buffer);
             const mediaName = fileName.split("").splice(0, 5).join("");
             const file = {
               path: filePath,
@@ -2695,11 +2690,11 @@ const media = strapi$1.factories.createCoreController(
               type: fileResponse?.headers["content-type"],
               size: buffer?.length
             };
-            const fileExtension = path__default.default.extname(fileName).slice(1);
+            const fileExtension = path$1.extname(fileName).slice(1);
             if (fileExtension === "webp") {
               file.type = "image/webp";
             }
-            if (!file.path || !fs__default.default.existsSync(file.path)) {
+            if (!file.path || !fs$2.existsSync(file.path)) {
               throw new Error(
                 `File path is invalid or file does not exist for media ID ${id}`
               );
@@ -2711,8 +2706,8 @@ const media = strapi$1.factories.createCoreController(
             if (!fileExist) {
               const uploader = strapi2.service("plugin::upload.upload");
               try {
-                fs__default.default.writeFileSync(filePath, buffer);
-                const stats = fs__default.default.statSync(filePath);
+                fs$2.writeFileSync(filePath, buffer);
+                const stats = fs$2.statSync(filePath);
                 const response = await uploader.upload({
                   data: {
                     fileInfo: {
@@ -2725,8 +2720,8 @@ const media = strapi$1.factories.createCoreController(
                   },
                   files: {
                     filepath: filePath,
-                    newFilename: path__default.default.basename(filePath),
-                    originalFilename: path__default.default.basename(filePath),
+                    newFilename: path$1.basename(filePath),
+                    originalFilename: path$1.basename(filePath),
                     size: stats.size,
                     mimetype: mime.lookup(filePath)
                   }
@@ -2738,7 +2733,7 @@ const media = strapi$1.factories.createCoreController(
               } catch (error) {
                 console.log(error.stack || error.message);
               } finally {
-                fs__default.default.rmSync(filePath);
+                fs$2.rmSync(filePath);
               }
             } else {
               console.log(`Media with ID ${media2.id} already exists`);
@@ -2779,10 +2774,10 @@ function getDefaultExportFromCjs(x) {
 var he$1 = { exports: {} };
 /*! https://mths.be/he v1.2.0 by @mathias | MIT license */
 he$1.exports;
-(function(module2, exports2) {
+(function(module, exports) {
   (function(root) {
-    var freeExports = exports2;
-    var freeModule = module2 && module2.exports == freeExports && module2;
+    var freeExports = exports;
+    var freeModule = module && module.exports == freeExports && module;
     var freeGlobal = typeof commonjsGlobal == "object" && commonjsGlobal;
     if (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal) {
       root = freeGlobal;
@@ -3023,7 +3018,7 @@ he$1.exports;
 })(he$1, he$1.exports);
 var heExports = he$1.exports;
 const he = /* @__PURE__ */ getDefaultExportFromCjs(heExports);
-const post = strapi$1.factories.createCoreController("api::post.post", {
+const post = factories.createCoreController("api::post.post", {
   async migratePosts(ctx) {
     const { stopPage, batch } = ctx.params;
     const { restApi } = ctx.request.body;
@@ -3194,7 +3189,7 @@ const post = strapi$1.factories.createCoreController("api::post.post", {
     });
   }
 });
-const comment = strapi$1.factories.createCoreController("api::comment.comment", {
+const comment = factories.createCoreController("api::comment.comment", {
   async migrateComments(ctx) {
     const { stopPage, batch } = ctx.params;
     let page = ctx.params.page;
@@ -3273,7 +3268,7 @@ const comment = strapi$1.factories.createCoreController("api::comment.comment", 
     });
   }
 });
-const users = strapi$1.factories.createCoreController("plugin::users-permissions.user", ({ strapi: strapi2 }) => ({
+const users = factories.createCoreController("plugin::users-permissions.user", ({ strapi: strapi2 }) => ({
   async migrateUser(ctx) {
     let message = "";
     let success = false;
@@ -3283,7 +3278,7 @@ const users = strapi$1.factories.createCoreController("plugin::users-permissions
     let firstPage = page;
     const { stopPage, batch } = ctx.params;
     try {
-      const filePath = path__default.default.join("./w_users.json");
+      const filePath = path$1.join("./w_users.json");
       let hasMorePosts = true;
       const authorStructure = await fetchJsonStructure();
       while (hasMorePosts) {
@@ -3450,4 +3445,6 @@ const index = {
   policies,
   middlewares
 };
-module.exports = index;
+export {
+  index as default
+};

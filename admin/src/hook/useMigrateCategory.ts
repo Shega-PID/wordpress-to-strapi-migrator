@@ -1,6 +1,7 @@
 import { useState } from "react";
 import migrationRequest from "../api/migrate-posts-request";
 
+
 export interface ResultType {
   success: boolean;
   postPerPage: string;
@@ -37,6 +38,7 @@ const useMigrateCategory = () => {
     setIsMigrating(true)
 
     if(restApi.toLowerCase() === 'categories'){
+      console.log('inside categories')
      const  result= await migrationRequest.migrateCategory(startpage,endPage,batch,restApi);
       setResult(result)
     }else if(restApi.toLowerCase() === 'comments'){
@@ -61,6 +63,7 @@ const useMigrateCategory = () => {
     setShowAlert(true)
     setIsMigrating(false)
     setRestApi('')
+    console.log({isMigrating})
   };
   const handleClose = () => {
     setShowAlert(false);

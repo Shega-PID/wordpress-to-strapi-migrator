@@ -1,24 +1,30 @@
-import { Alert } from '@strapi/design-system/Alert';
-import { ReactNode, useState } from 'react';
+import React, { ReactNode } from 'react';
 
-interface AlertProps{
-  variant:string;
-  icon:ReactNode;
-  message:string;
-  handleClose:() => void;
+interface AlertProps {
+  variant: 'success' | 'danger' | 'warning' | 'info';
+  icon: ReactNode;
+  message: string;
+  handleClose: () => void;
 }
-const CustomAlert = ({variant,icon,message,handleClose}:AlertProps) => {
 
+const CustomAlert = ({ variant, icon, message, handleClose }: AlertProps) => {
   return (
-    <Alert className='custom-alert'
-      variant={variant}
-      icon={icon}
-      closeLabel="Close alert"
-      onClose={handleClose}
+    <div className={`alert alert-${variant}`} 
+    style={{
+      position: 'fixed',
+      top: 0,
+      left: '50%',
+      transform: 'translateX(-50%)',
+      width: '100%',
+      maxWidth: '600px',
+      zIndex: 1000,
+      marginTop: '10px'
+    }}
     >
-      {message}
-    </Alert>
-  
+      <span className="alert-icon">{icon}</span>
+      <span className="alert-message">{message}</span>
+      <button className="alert-close" onClick={handleClose}>×</button>
+    </div>
   );
 };
 

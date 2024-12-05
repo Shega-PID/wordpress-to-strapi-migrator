@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import { FieldInput } from "@strapi/design-system";
-import { EyeIcon } from "../icons/EyeIcon";
-import { EyeStrikedIcon } from "../icons/EyeStrikedIcon";
 
 interface InputFieldProps {
   id: string;
@@ -46,43 +43,47 @@ const InputField = ({
   };
 
   return (
-    <div className="">
-    <div className='custom-input-field'>
-      <label className={labelCss} htmlFor={id}>{label}</label>
-      <div className='input-container'>
-        <FieldInput
-          className={widthCss}
-          id={id}
-          type={type === "password" ? passwordType : type}
-          placeholder={placeholder}
-          onChange={handleChange}
-          min={type === "number" ? "1" : undefined}
-        />
-        {type === "password" && (
-          <svg
-            className={`password-toggle ${showPassword ? "visible" : ""}`}
-            onClick={toggleShowPassword}
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            style={{ cursor: 'pointer', color: 'white' }}
-          >
-            {showPassword ? (
-              <EyeIcon />
-            ) : (
-              <EyeStrikedIcon />
-            )}
-          </svg>
-        )}
+    <div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+          minHeight: "20px"
+        }}
+      >
+        <label style={{
+              width: "130px", 
+              fontSize:'16px'
+            }} className={labelCss} htmlFor={id}>
+          {label}
+        </label>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            position: "relative",
+            width: "130px" // Updated width to 30px
+          }}
+        >
+          <input
+            className={widthCss}
+            id={id}
+            type={type === "password" ? passwordType : type}
+            placeholder={placeholder}
+            onChange={handleChange}
+            min={type === "number" ? "1" : undefined}
+            style={{
+              width: "130px", 
+              fontSize:'16px',
+              padding:'5px 0px'
+            }}
+          />
+        </div>
       </div>
-   
-    </div>
-  
-    {error && <p className="error-message">{error}</p>}
-    </div>
 
+      {error && <p className="error-message">{error}</p>}
+    </div>
   );
 };
 
