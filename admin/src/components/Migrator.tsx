@@ -6,7 +6,6 @@ interface MigratorProps {
   handleStartPage: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleEndPage: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleBatch: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleFieldMapping: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleRestApi: (event: React.ChangeEvent<HTMLInputElement>) => void;
   label: string;
   handleMigration: (
@@ -28,7 +27,6 @@ const Migrator = ({
   handleBatch,
   handleRestApi,
   handleMigration,
-  handleFieldMapping,
   startPage,
   endPage,
   batch,
@@ -38,10 +36,25 @@ const Migrator = ({
 }: MigratorProps) => {
 
   return (
-    <div className="migrateContent">
+    <div style={{
+      display: 'flex',
+      flexDirection: 'row',
+      width:'100%',
+      justifyContent: 'flex-start', 
+      flexWrap: 'wrap',
+      gap: '10px',
+      marginLeft: '5%',
+    }}>
     
      
-    <div className="migrator-fields">
+    <div style={{
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'start',
+  flexWrap: 'wrap',
+  alignItems: 'center',
+  gap: '40px'
+}}>
       <InputField
         id="start-page"
         label="Start Page:"
@@ -84,7 +97,11 @@ const Migrator = ({
       />
     
     </div>
-    <div className="migrator-button">  <SButton
+    <div style={{
+  display: 'flex',
+  justifyContent: 'end',
+  alignItems: 'end'
+}}>  <SButton
         id="migrate-button"
         onClick={() =>
           handleMigration(startPage, endPage, batch, restApi,fieldMap)
